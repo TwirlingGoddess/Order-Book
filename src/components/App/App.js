@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import User from '../../containers/User/User'
-import Orders from '../../containers/Orders/Orders'
+import User from '../../containers/User/User';
+import Orders from '../../containers/Orders/Orders';
+// import './App.css';
 
 class App extends Component {
   render() {

@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import { BrowserRouter } from 'react-router-dom';
 import rootReducer from './reducers/index.js';
 import App from './components/App/App';
+import './index.css';
 
 const devTools =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
