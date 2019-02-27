@@ -3,8 +3,6 @@ var orders = require('../../assets/order-book.json')
 
 class Orders extends Component {
 
-
-
   constructor() {
     super()
     this.state = {
@@ -52,7 +50,7 @@ class Orders extends Component {
     })
     var ordersArray = orders.map(order => {
       return(
-        <div>
+        <div className="Orders">
           <h3>{ order.id }</h3>
           <h4>{ order.type }</h4>
           <h4>{ order.price }</h4>

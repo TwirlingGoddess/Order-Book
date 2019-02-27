@@ -1,14 +1,10 @@
 html {
   color: red;
+  width: 100vw;
+
 }
 
-article {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
-
-section {
+#root {
   background: green;
   height: 100vh;
   width: 100vw;
@@ -18,4 +14,13 @@ section {
   justify-content: space-around;
 }
 
+article {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+}
 
+.Orders {
+  margin: auto;
+}

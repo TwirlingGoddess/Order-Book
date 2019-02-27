@@ -5,7 +5,8 @@ const userReducer = (state = initalState, action) => {
     case 'STORE_USER':
       return {
         ...state,
-        user: action.name
+        userName: action.user.name,
+        userBalances: action.user.balances
       }
     default:
       return state;
