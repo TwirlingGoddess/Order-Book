@@ -42,3 +42,13 @@ The user should be able to input the​ price​, ​volume​ and ​total​. 
 ### Task 4: Executing the Order
 Upon submitting the order, the order book and the user’s account balance should be updated.
 A limit order that has no matches on the order book should be added to the list. A limit sell order should be matched with a ​bid​ price that is equal to or greater than the order’s price. A limit buy order should be matched with an ​ask​ ​price ​that is equal to or less than the order’s price.
+
+### Task 5: Displaying Open and Closed Orders
+Create a React component that will display the user’s closed and open orders. Open and closed order lists should display the following columns:
+- Price
+- Volume
+- Type (bid or ask)
+Closed orders​ are orders that are already filled; ​Open orders​ are orders that have not yet been matched.
+
+### Task 6: Testing Redux
+Try to deploy to heroku and connect CLI as well if you have time.
