@@ -9,3 +9,7 @@ An ​order book​ is a list of orders indexed by ​price level ​that an exc
 
 There are two fundamental ways to execute an order: ​market​ and ​limit​. A ​market order​ is expected to execute as quickly as possible at the last traded price. On the other hand, a ​limit order​ indicates the minimum selling or maximum buying price. A limit order is executed only if the matched order is equal to or higher than the minimum selling price OR equal to or lower than the maximum buying price.
 
+A ​trade-matching engine ​uses the order book such that interests of buyers and sellers are satisfied and orders are matched.
+A ​spread i​ s the difference between the lowest ask and the highest bid.
+A sample visual representation of an order book for trading Bitcoin (BTC) with Tether (USDT) is
+shown in the following figure:
