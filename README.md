@@ -17,5 +17,12 @@ shown in the following figure:
  (Source)[https://upcoin.com/trade/BTC-USDT]
  
  The ​Price​ column indicates bids (in green text) and asks (in red). Orders are grouped within the same price level based on price values with decimal places truncated to 5 significant figures (Grouping: 0.00001). The volume of the total order is shown instead of that of individual orders, Total​ for each price level is indicated. ​Amount​ corresponds to the volume that is already fulfilled.
-Here are your tasks for this exercise.
 
+
+## Here are your tasks for this exercise.
+### Task 1: Displaying user information and balance
+Create a ​React​ component that displays the user’s name and balance for ​Philippine Peso (PHP) and the cryptocurrency ​TestCoin (TCN).
+The balances for ​PHP​ and ​TCN​ should be updated when a user places an order or when an order is filled.
+The data for the user is in the text/json file attached to the email.
+
+### 
