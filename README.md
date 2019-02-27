@@ -25,4 +25,9 @@ Create a ​React​ component that displays the user’s name and balance for �
 The balances for ​PHP​ and ​TCN​ should be updated when a user places an order or when an order is filled.
 The data for the user is in the text/json file attached to the email.
 
-### 
+### Task 2: Displaying an order book
+Createa​React​componentthatdisplaysthe​bids​and​asks.​ Thecomponentshouldhavea vertically displayed list that is divided into two. The upper half should contain the ​asks​ while the bottom half should display the ​bids​. The list should be separated by a box that displays the spread​ of the order book.
+The orders on the ​ask s​ ection should be sorted from lowest to highest (bottom to top, starting from the middle), while the orders on the ​bids ​should be displayed from highest to lowest (top to bottom).
+Use the text/json file attached to the email as the initial content of the order book.
+
+###
