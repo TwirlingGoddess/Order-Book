@@ -30,4 +30,12 @@ Createa​React​componentthatdisplaysthe​bids​and​asks.​ Thecomponents
 The orders on the ​ask s​ ection should be sorted from lowest to highest (bottom to top, starting from the middle), while the orders on the ​bids ​should be displayed from highest to lowest (top to bottom).
 Use the text/json file attached to the email as the initial content of the order book.
 
-###
+### Task 3: Creating a Form for Placing a Limit Order.
+Create a form that will allow users to input and submit their order. The form should have the following controls:
+- Type (Dropdown with two items, ​Buy (Bid) a​ nd ​Sell (Ask)​)
+- Price (Input)
+- Volume (Input)
+- Total (Input)
+- Submit (Button)
+The user should be able to input the​ price​, ​volume​ and ​total​. Changing the ​total​ should only compute and change the volume.
+
