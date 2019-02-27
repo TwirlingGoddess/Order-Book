@@ -13,3 +13,5 @@ A ​trade-matching engine ​uses the order book such that interests of buyers 
 A ​spread i​ s the difference between the lowest ask and the highest bid.
 A sample visual representation of an order book for trading Bitcoin (BTC) with Tether (USDT) is
 shown in the following figure:
+
+ Source: ​https://upcoin.com/trade/BTC-USDT
