@@ -14,7 +14,9 @@ A ​spread i​ s the difference between the lowest ask and the highest bid.
 A sample visual representation of an order book for trading Bitcoin (BTC) with Tether (USDT) is
 shown in the following figure:
 
- (Source)[https://upcoin.com/trade/BTC-USDT]
+
+
+ [Source](https://upcoin.com/trade/BTC-USDT)
  
  The ​Price​ column indicates bids (in green text) and asks (in red). Orders are grouped within the same price level based on price values with decimal places truncated to 5 significant figures (Grouping: 0.00001). The volume of the total order is shown instead of that of individual orders, Total​ for each price level is indicated. ​Amount​ corresponds to the volume that is already fulfilled.
 
