@@ -39,3 +39,6 @@ Create a form that will allow users to input and submit their order. The form sh
 - Submit (Button)
 The user should be able to input the​ price​, ​volume​ and ​total​. Changing the ​total​ should only compute and change the volume.
 
+### Task 4: Executing the Order
+Upon submitting the order, the order book and the user’s account balance should be updated.
+A limit order that has no matches on the order book should be added to the list. A limit sell order should be matched with a ​bid​ price that is equal to or greater than the order’s price. A limit buy order should be matched with an ​ask​ ​price ​that is equal to or less than the order’s price.
