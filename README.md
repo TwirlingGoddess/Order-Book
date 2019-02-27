@@ -14,7 +14,7 @@ A ​spread i​ s the difference between the lowest ask and the highest bid.
 A sample visual representation of an order book for trading Bitcoin (BTC) with Tether (USDT) is
 shown in the following figure:
 
-
+![image](https://github.com/TwirlingGoddess/Order-Book/blob/master/Screen%20Shot%202019-02-27%20at%203.44.39%20AM.png)
 
  [Source](https://upcoin.com/trade/BTC-USDT)
  
