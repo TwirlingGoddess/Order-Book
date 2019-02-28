@@ -7,8 +7,8 @@ var orders = require('../../assets/order-book.json')
 
 export class Orders extends Component {
 
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       bidsArray: [],
       asksArray: []
