@@ -6,7 +6,9 @@ export class Form extends Component {
   constructor() {
     super()
     this.state = {
-
+      price: 0,
+      volume: 0,
+      total: 0
     }
   }
 

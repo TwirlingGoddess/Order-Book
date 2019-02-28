@@ -1,8 +1,10 @@
 .App {
   display: flex;
-  align-items: center;
+  align-items: space-between;
   flex-direction: row;
+  justify-content: space-around;
 }
+
 section {
   background: green;
   height: 100vh;
@@ -10,4 +12,8 @@ section {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+form {
+  /*height: 2rem*/
 }
