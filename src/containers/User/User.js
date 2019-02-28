@@ -13,9 +13,9 @@ export class User extends Component {
 
   render() {
     
-    var userArray = user.balances.map(duo => {
+    var userArray = user.balances.map((duo, index) => {
       return(
-        <h3>{ duo.symbol } : <em>{ duo.balance }</em></h3>
+        <h3 key={index}>{ duo.symbol } : <em>{ duo.balance }</em></h3>
       )
     })
 

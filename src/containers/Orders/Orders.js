@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { storeOrders } from '../../actions'
+
 var orders = require('../../assets/order-book.json')
 
-class Orders extends Component {
+export class Orders extends Component {
 
   constructor() {
     super()
@@ -12,9 +16,10 @@ class Orders extends Component {
   }
 
   componentDidMount() {
+    this.props.storeOrders(orders)
     this.organizeBids()
     this.organizeAsks()
-    console.log(orders, this.state.asksArray, this.state.bidsArray)
+    // console.log(orders, this.state.asksArray, this.state.bidsArray)
   }
 
   organizeBids() {
@@ -38,9 +43,10 @@ class Orders extends Component {
   }
 
   render() {
-    var asksList = this.state.asksArray.map(order => {
+    var asksList = this.state.asksArray.map((order, index) => {
+      console.log(order)
       return(
-        <div>
+        <div key={index}>
           <h3>{ order.id }</h3>
           <h4>{ order.type }</h4>
           <h4>{ order.price }</h4>
@@ -48,9 +54,9 @@ class Orders extends Component {
         </div>
       )
     })
-    var ordersArray = orders.map(order => {
+    var ordersArray = orders.map((order, index) => {
       return(
-        <div className="Orders">
+        <div key={index} className="Orders">
           <h3>{ order.id }</h3>
           <h4>{ order.type }</h4>
           <h4>{ order.price }</h4>
@@ -58,9 +64,9 @@ class Orders extends Component {
         </div>
       )
     })
-    var bidsList = this.state.bidsArray.map(order => {
+    var bidsList = this.state.bidsArray.map((order, index) => {
       return(
-        <div>
+        <div key={index}>
           <h3>{ order.id }</h3>
           <h4>{ order.type }</h4>
           <h4>{ order.price }</h4>
@@ -71,21 +77,32 @@ class Orders extends Component {
 
     return(
       <div>
-        <h1>Bids</h1>
+
+        <h1>Asks</h1>
         <article>
-          { bidsList }
+          { asksList }
         </article>
+
         <h1>All Orders</h1>
         <article>
           { ordersArray }
         </article>
-        <h1>Asks</h1>
+
+        <h1>Bids</h1>
         <article>
-          { asksList }
+          { bidsList }
         </article>
       </div>
     )
   }
 }
 
-export default Orders
+export const mapDispatchToProps = dispatch => ({
+  storeOrders: user => dispatch(storeOrders(orders))
+});
+
+Orders.propTypes = {
+  storeOrders: PropTypes.func.isRequired
+};
+
+export default connect(null, mapDispatchToProps)(Orders);
