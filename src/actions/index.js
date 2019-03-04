@@ -17,3 +17,8 @@ export const storeBids = bids => ({
   type: 'STORE_BIDS',
   bids
 });
+
+export const updateUser = balance => ({
+  type: 'UPDATE_USER',
+  balance
+})

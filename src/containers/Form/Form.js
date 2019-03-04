@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { updateUser } from '../../actions'
 
 export class Form extends Component {
 
@@ -15,7 +16,10 @@ export class Form extends Component {
 
   inputSubmit(e) {
     e.preventDefault()
-    console.log(this.state)
+    console.log(this.state, parseInt(this.state.price)-this.props.user.userBalances[1].balance)
+    this.props.updateUser(parseInt(this.state.price)-this.props.user.userBalances[1].balance)
+    // take the state info and use it to updateUsers info by subtracting the price from the test coin. 
+    // this.updateUser()
 
   }
 
@@ -25,8 +29,6 @@ export class Form extends Component {
     this.setState({
       [ name ]: value
     })
-    
-    console.log(this.state)
   }
 
   render() {
@@ -75,11 +77,11 @@ export class Form extends Component {
 }
 
 export const mapDispatchToProps = dispatch => ({
-
+  updateUser: balance => dispatch(updateUser(balance))
 })
 
 export const mapStateToProps = state => ({
-
+  user: state.user
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
