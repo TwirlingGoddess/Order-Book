@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import User from '../../containers/User/User';
 import Form from '../../containers/Form/Form';
 import Orders from '../../containers/Orders/Orders';
+import FilterMenu from './FilterMenu'
+
 // import './App.css';
 
 export class App extends Component {
@@ -17,6 +19,7 @@ export class App extends Component {
           <Form />
         </div>
         <hr />
+        <FilterMenu />
         <Orders />
       </div>
     )

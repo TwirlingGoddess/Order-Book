@@ -36,3 +36,7 @@ export const displayOrders = orders => ({
   type: 'DISPLAY_ORDERS',
   orders
 })
+
+export const setFilter = filter => ({
+  filter
+})

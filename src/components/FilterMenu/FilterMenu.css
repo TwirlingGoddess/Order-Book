@@ -1,0 +1,20 @@
+.FilterMenu {
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.FilterMenu a {
+    text-decoration: none;
+    color: #aaa;
+    text-transform: uppercase;
+    margin: 0 20px;
+    padding: 16px;
+}
+
+.FilterMenu a:hover {
+  color: black;
+}
