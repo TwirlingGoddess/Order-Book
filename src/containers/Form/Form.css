@@ -1,0 +1,19 @@
+.Form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: auto;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 20%;
+}
+
+section {
+  border: 5px solid red;
+  width: 60%;
+}

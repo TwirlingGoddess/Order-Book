@@ -26,6 +26,11 @@ const userReducer = (state = initalState, action) => {
         ...state,
         Orders: [...state.Orders, action.order]
       }
+    case 'DISPLAY_ORDERS':
+      return {
+        ...state,
+        Orders: action.orders
+      }
     default:
       return state;
   }

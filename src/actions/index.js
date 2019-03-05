@@ -32,3 +32,7 @@ export const saveOrder = order => ({
   type: 'SAVE_ORDER',
   order
 })
+export const displayOrders = orders => ({
+  type: 'DISPLAY_ORDERS',
+  orders
+})

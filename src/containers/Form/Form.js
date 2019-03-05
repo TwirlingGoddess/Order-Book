@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateUser, saveOrder } from '../../actions';
+import { store } from '../../index.js';
+import { updateUser, saveOrder, displayOrders } from '../../actions';
+import './Form.css';
 
 export class Form extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       type: '',
       price: 0,
@@ -25,11 +27,11 @@ export class Form extends Component {
   }
 
   updateState(e) {
-    const name = e.target.name
-    const value = e.target.value
-    if(name === "total") {
+    const { name, value} = e.target
+    if(name === "total" || name === "volume") {
       this.setState({
-        volume: value
+        volume: value,
+        total: value
       })
     } else {
       this.setState({
@@ -38,43 +40,62 @@ export class Form extends Component {
     }
   }
 
+  retreiveOrders(props){
+    const displayOrders = this.props.user.Orders.map((order, index) => {
+      return(
+        <div key={index}>
+          <h4>oreder.type</h4>
+          <h4>order.price</h4>
+          <h4>order.volume</h4>
+          <h4>order.total</h4>
+        </div>
+      )
+    })
+  }
+
   render() {
 
+
     return(
-      <form onSubmit={e => this.inputSubmit(e)}>
-        <label htmlFor="dropdown">You Buying or Selling?</label>
-        <select id="dropdown" name="type" onChange={e => this.updateState(e)}>
-          <option >choose one</option>
-          <option value="buy" >Buy</option>
-          <option  value="sell" >Sell</option>
-        </select>
+      <div className="Form">
+        <form onSubmit={e => this.inputSubmit(e)}>
+          <label htmlFor="dropdown">You Buying or Selling?</label>
+          <select id="dropdown" name="type" onChange={e => this.updateState(e)}>
+            <option >choose one</option>
+            <option value="buy" >Buy</option>
+            <option  value="sell" >Sell</option>
+          </select>
 
-        <label htmlFor="price">Price?</label>
-        <input id="price" 
-          name="price" 
-          type="number" 
-          placeholder="000.00000" 
-          onChange={e => this.updateState(e)}
-          value={this.state.price}/>    
+          <label htmlFor="price">Price?</label>
+          <input id="price" 
+            name="price" 
+            type="number" 
+            placeholder="000.00000"
+            onChange={e => this.updateState(e)}
+            value={this.state.price}/>    
 
-        <label htmlFor="volume">Volume?</label>
-        <input id="volume" 
-          name="volume" 
-          type="number" 
-          placeholder="000.00000" 
-          onChange={e => this.updateState(e)}
-          value={this.state.volume}/>
-       
-        <label htmlFor="total">Total?</label>
-        <input id="total" 
-          name="total" 
-          type="number" 
-          placeholder="1 000.00000" 
-          onChange={e => this.updateState(e)}
-          value={this.state.volume}/>
+          <label htmlFor="volume">Volume?</label>
+          <input id="volume" 
+            name="volume" 
+            type="number" 
+            placeholder="000.00000"
+            onChange={e => this.updateState(e)}
+            value={this.state.volume}/>
+         
+          <label htmlFor="total">Total?</label>
+          <input id="total" 
+            name="total" 
+            type="number" 
+            placeholder="1 000.00000"
+            onChange={e => this.updateState(e)}
+            value={this.state.volume}/>
 
-        <button>submit</button>
-      </form>
+          <button onClick={this.retreiveOrders}>submit</button>
+        </form>
+        <section id="Orders" onChange={this.retreiveOrders}>
+        
+        </section>
+      </div>
     )
   }
 
@@ -84,12 +105,13 @@ export class Form extends Component {
 }
 
 export const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  Orders: state.Orders
 })
 
 export const mapDispatchToProps = dispatch => ({
   updateUser: newBalances => dispatch(updateUser(newBalances)),
-  saveOrder: order => dispatch(saveOrder(order))
+  saveOrder: order => dispatch(saveOrder(order)),
 })
 
 Form.propTypes = {
