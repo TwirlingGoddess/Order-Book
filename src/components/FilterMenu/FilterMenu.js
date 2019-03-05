@@ -1,12 +1,13 @@
-import React from 'react'
-import Filter from '../containers/Filter'
+import React from 'react';
+import Filter from '../../containers/Filter/Filter';
+import './FilterMenu.css';
 
 const FilterMenu = () => {
   return (
     <section className="FilterMenu">
-      <Filter filter="SHOW_ALL">All Todos</Filter>
-      <Filter filter="SHOW_OPEN">Active</Filter>
-      <Filter filter="SHOW_CLOSED">Completed</Filter>
+      <Filter filter="SHOW_ALL">ALL ORDERS</Filter>
+      <Filter filter="SHOW_OPEN">OPEN</Filter>
+      <Filter filter="SHOW_CLOSED">CLOSED</Filter>
     </section>
   )
 }

@@ -26,17 +26,18 @@ export const storeBids = bids => ({
 export const updateUser = balances => ({
   type: 'UPDATE_USER',
   balances
-})
+});
 
 export const saveOrder = order => ({
   type: 'SAVE_ORDER',
   order
-})
+});
 export const displayOrders = orders => ({
   type: 'DISPLAY_ORDERS',
   orders
-})
+});
 
 export const setFilter = filter => ({
+  type: 'SET_FILTER',
   filter
-})
+});

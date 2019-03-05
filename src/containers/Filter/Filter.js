@@ -1,11 +1,11 @@
-import React from 'react'
-import { setFilter } from '../actions'
-import { connect } from 'react-redux'
+import React from 'react';
+import { setFilter } from '../../actions';
+import { connect } from 'react-redux';
 
 const Filter = ({filter, children, handleClick}) => {
   return (
     <a
-      href="#"
+      href='#'
       onClick={ (e) => {
         e.preventDefault()
         handleClick(filter)

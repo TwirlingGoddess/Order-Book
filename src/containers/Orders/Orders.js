@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { storeOrders, storeAsks, storeBids } from '../../actions';
 var orders = require('../../assets/order-book.json');
-import './Orders.css'
+import './Orders.css';
 
 export class Orders extends Component {
 

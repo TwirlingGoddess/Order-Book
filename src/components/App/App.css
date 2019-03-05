@@ -1,6 +1,6 @@
-.App {
+.UserSection {
   display: flex;
-  align-items: space-between;
   flex-direction: row;
-  justify-content: space-around;
+  /*align-items: space-around;*/
+  /*justify-content: space-around;*/
 }

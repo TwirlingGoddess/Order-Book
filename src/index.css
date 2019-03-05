@@ -1,11 +1,11 @@
 html {
-  color: red;
+  color: slategrey;
   width: 100%;
-
 }
 
 #root {
-  background: green;
+  font-family: sans-serif;
+  background-color: #f4f4f4;
   height: 100%;
   width: 100%;
   display: flex;

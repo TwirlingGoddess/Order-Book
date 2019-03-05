@@ -40,21 +40,7 @@ export class Form extends Component {
     }
   }
 
-  retreiveOrders(props){
-    const displayOrders = this.props.user.Orders.map((order, index) => {
-      return(
-        <div key={index}>
-          <h4>oreder.type</h4>
-          <h4>order.price</h4>
-          <h4>order.volume</h4>
-          <h4>order.total</h4>
-        </div>
-      )
-    })
-  }
-
   render() {
-
 
     return(
       <div className="Form">
@@ -90,18 +76,11 @@ export class Form extends Component {
             onChange={e => this.updateState(e)}
             value={this.state.volume}/>
 
-          <button onClick={this.retreiveOrders}>submit</button>
+          <button>submit</button>
         </form>
-        <section id="Orders" onChange={this.retreiveOrders}>
-        
-        </section>
       </div>
     )
   }
-
-
-
-
 }
 
 export const mapStateToProps = state => ({
