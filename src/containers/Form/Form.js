@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateUser } from '../../actions'
+import { updateUser, saveOrder } from '../../actions'
 
 export class Form extends Component {
 
@@ -20,18 +20,21 @@ export class Form extends Component {
     const newBTC = Number.parseFloat(this.props.user.TestCoin).toFixed(5) - Number.parseFloat(this.state.price).toFixed(5)
     const newBalances = [{symbol: "PHP", balance: newPHP}, {symbol: "TestCoin", balance: newBTC}]
     this.props.updateUser(newBalances)
-    console.log(this.state, newBalances)
-    // take the state info and use it to updateUsers info by subtracting the price from the test coin. 
-    // this.updateUser()
-
+    this.props.saveOrder(this.state)
   }
 
   updateState(e) {
     const name = e.target.name
     const value = e.target.value
-    this.setState({
-      [ name ]: value
-    })
+    if(name === "total") {
+      this.setState({
+        volume: value
+      })
+    } else {
+      this.setState({
+        [ name ]: value
+      })
+    }
   }
 
   render() {
@@ -67,7 +70,7 @@ export class Form extends Component {
           type="number" 
           placeholder="1 000.00000" 
           onChange={e => this.updateState(e)}
-          value={this.state.total}/>
+          value={this.state.volume}/>
 
         <button>submit</button>
       </form>
@@ -80,7 +83,8 @@ export class Form extends Component {
 }
 
 export const mapDispatchToProps = dispatch => ({
-  updateUser: newBalances => dispatch(updateUser(newBalances))
+  updateUser: newBalances => dispatch(updateUser(newBalances)),
+  saveOrder: order => dispatch(saveOrder(order))
 })
 
 export const mapStateToProps = state => ({

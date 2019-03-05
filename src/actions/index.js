@@ -27,3 +27,8 @@ export const updateUser = balances => ({
   type: 'UPDATE_USER',
   balances
 })
+
+export const saveOrder = order => ({
+  type: 'SAVE_ORDER',
+  order
+})
