@@ -1,6 +1,11 @@
-export const storeUser = user => ({
-  type: 'STORE_USER',
-  user
+export const storeUsername = username => ({
+  type: 'STORE_USERNAME',
+  username
+});
+
+export const storeBalances = balances => ({
+  type: 'STORE_BALANCES',
+  balances
 });
 
 export const storeOrders = orders => ({
@@ -18,7 +23,7 @@ export const storeBids = bids => ({
   bids
 });
 
-export const updateUser = balance => ({
+export const updateUser = balances => ({
   type: 'UPDATE_USER',
-  balance
+  balances
 })

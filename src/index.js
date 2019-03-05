@@ -10,7 +10,7 @@ import './index.css';
 const devTools =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
-const store = createStore(rootReducer, devTools);
+export const store = createStore(rootReducer, devTools);
 
 const app = (
   <Provider store={store}>

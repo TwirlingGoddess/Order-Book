@@ -1,41 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { storeUser } from '../../actions'
+import { store } from '../../index.js';
+import { updateUser } from '../../actions'
 
-var user = require('../../assets/user.json')
 
 export class User extends Component {
 
-  componentDidMount() {
-    this.props.storeUser(user)
-  }
-
   render() {
-    
-    var userArray = user.balances.map((duo, index) => {
-      return(
-        <h3 key={index}>{ duo.symbol } : <em>{ duo.balance }</em></h3>
-      )
-    })
 
     return(
       <div>
         <h1>User</h1>
-        <h2>{ user.name }</h2>
-        {userArray}
+        <h2>{ store.getState().user.username }</h2>
+        <h3>PHP : <em>{ store.getState().user.PHP }</em></h3>
+        <h3>BTC: <em>{ store.getState().user.TestCoin }</em></h3>
       </div>
     )
   }
 }
 
 
-export const mapDispatchToProps = dispatch => ({
-  storeUser: user => dispatch(storeUser(user))
-});
+export const mapStateToProps = state => ({
+  user: state.user
+})
 
 User.propTypes = {
-  storeUser: PropTypes.func.isRequired
+  user: PropTypes.object.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(User);
+export default connect(mapStateToProps, null)(User);

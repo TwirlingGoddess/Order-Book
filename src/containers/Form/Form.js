@@ -15,9 +15,12 @@ export class Form extends Component {
   }
 
   inputSubmit(e) {
-    e.preventDefault()
-    console.log(this.state, parseInt(this.state.price)-this.props.user.userBalances[1].balance)
-    this.props.updateUser(parseInt(this.state.price)-this.props.user.userBalances[1].balance)
+    e.preventDefault();
+    const newPHP = Number.parseFloat(this.props.user.PHP).toFixed(5) - Number.parseFloat((this.state.price)*2.85714286).toFixed(5)
+    const newBTC = Number.parseFloat(this.props.user.TestCoin).toFixed(5) - Number.parseFloat(this.state.price).toFixed(5)
+    const newBalances = [{symbol: "PHP", balance: newPHP}, {symbol: "TestCoin", balance: newBTC}]
+    this.props.updateUser(newBalances)
+    console.log(this.state, newBalances)
     // take the state info and use it to updateUsers info by subtracting the price from the test coin. 
     // this.updateUser()
 
@@ -77,7 +80,7 @@ export class Form extends Component {
 }
 
 export const mapDispatchToProps = dispatch => ({
-  updateUser: balance => dispatch(updateUser(balance))
+  updateUser: newBalances => dispatch(updateUser(newBalances))
 })
 
 export const mapStateToProps = state => ({
