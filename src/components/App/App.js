@@ -12,7 +12,6 @@ export class App extends Component {
     return(
       <div className="App">
         <h1>BitCoin Order Book</h1>
-        <hr />
         <div className="UserSection">
           <User />
           <Form />
