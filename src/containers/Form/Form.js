@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateUser, saveOrder } from '../../actions'
+import { updateUser, saveOrder } from '../../actions';
 
 export class Form extends Component {
 
@@ -82,13 +83,19 @@ export class Form extends Component {
 
 }
 
+export const mapStateToProps = state => ({
+  user: state.user
+})
+
 export const mapDispatchToProps = dispatch => ({
   updateUser: newBalances => dispatch(updateUser(newBalances)),
   saveOrder: order => dispatch(saveOrder(order))
 })
 
-export const mapStateToProps = state => ({
-  user: state.user
-})
+Form.propTypes = {
+  user: PropTypes.object.isRequired,
+  updateUser: PropTypes.func.isRequired,
+  saveOrder: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

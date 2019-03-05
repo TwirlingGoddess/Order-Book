@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { store } from '../../index.js';
-import { storeUsername, storeBalances } from '../../actions'
+import { storeUsername, storeBalances } from '../../actions';
 
 var user = require('../../assets/user.json')
 
