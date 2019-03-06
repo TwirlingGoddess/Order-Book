@@ -4,7 +4,7 @@ import './Order.css';
 const Order = ({ id, price, volume, closed}) => {
   return (
     <aside
-      className="Orders"
+      className="Order"
       // onClick={ handleClick }
       style={
         { textDecoration: closed ? 'line-through' : 'none' }
