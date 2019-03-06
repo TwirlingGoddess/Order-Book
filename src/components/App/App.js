@@ -3,10 +3,21 @@ import User from '../../containers/User/User';
 import Form from '../../containers/Form/Form';
 import Orders from '../../containers/Orders/Orders';
 import FilterMenu from '../FilterMenu/FilterMenu';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { storeOrders } from '../../actions';
+var orders = require('../../assets/order-book.json');
+import OrderContainer from '../../containers/OrderContainer/OrderContainer';
+
 import './App.css';
 
 export class App extends Component {
 
+  componentDidMount() {
+    this.props.storeOrders(orders)
+  }
+
+        // <Orders />
 
   render() {
     return(
@@ -17,7 +28,7 @@ export class App extends Component {
           <Form />
         </div>
         <FilterMenu />
-        <Orders />
+        <OrderContainer />
       </div>
     )
   }
@@ -25,4 +36,8 @@ export class App extends Component {
 
 
 
-export default App;
+export const mapDispatchToProps = dispatch => ({
+  storeOrders: orders => dispatch(storeOrders(orders)),
+});
+
+export default connect(null, mapDispatchToProps)(App)

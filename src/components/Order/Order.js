@@ -1,16 +1,20 @@
-import React from 'react'
+import React from 'react';
+import './Order.css';
 
-const Order = ({text, closed, handleClick}) => {
+const Order = ({ id, price, volume, closed}) => {
   return (
-    <li
-      onClick={ handleClick }
+    <aside
+      className="Orders"
+      // onClick={ handleClick }
       style={
         { textDecoration: closed ? 'line-through' : 'none' }
       }
     >
-      { text }
-    </li>
+      <h4>{ id }</h4>
+      <h4>{ price }</h4>
+      <h4>{ volume }</h4>
+    </aside>
   )
-}
+};
 
 export default Order

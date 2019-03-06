@@ -41,3 +41,8 @@ export const setFilter = filter => ({
   type: 'SET_FILTER',
   filter
 });
+
+export const toggleOrder = (id) => ({
+  type: 'TOGGLE_ORDER',
+  id
+})

@@ -1,12 +1,11 @@
-const initalState = {};
+const initalState = [];
 
 const ordersReducer = (state = initalState, action) => {
   switch (action.type) {
     case 'STORE_ORDERS':
-      return {
-        ...state,
-        allOrders: action.orders,
-      }
+      return action.orders.map(order => Object.assign({}, order, order['closed']= false ))
+      break;
+
     default:
       return state;
   }

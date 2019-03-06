@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { storeOrders, storeAsks, storeBids } from '../../actions';
-var orders = require('../../assets/order-book.json');
 import './Orders.css';
 
 export class Orders extends Component {
@@ -98,24 +97,19 @@ export class Orders extends Component {
 }
 
 export const mapDispatchToProps = dispatch => ({
-  storeOrders: orders => dispatch(storeOrders(orders)),
   storeAsks: asks => dispatch(storeAsks(asks)),
   storeBids: bids => dispatch(storeBids(bids)),
 });
 
 export const mapStateToProps = state => ({
-  orders: state.orders,
-  // bids: state.bids,
-  // asks: state.asks
+  orders: state.orders
 })
 
 Orders.propTypes = {
   storeOrders: PropTypes.func.isRequired,
   storeAsks: PropTypes.func.isRequired,
   storeBids: PropTypes.func.isRequired,
-  orders: PropTypes.object.isRequired,
-  // bids: PropTypes.object.isRequired,
-  // asks: PropTypes.object.isRequired
+  orders: PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);
