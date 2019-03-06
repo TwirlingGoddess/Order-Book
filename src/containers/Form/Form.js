@@ -11,9 +11,9 @@ export class Form extends Component {
     super(props)
     this.state = {
       type: '',
-      price: 0,
-      volume: 0,
-      total: 0,
+      price: '',
+      volume: '',
+      total: ''
     }
   }
 
@@ -46,14 +46,21 @@ export class Form extends Component {
       <div className="Form">
         <form onSubmit={e => this.inputSubmit(e)}>
           <label htmlFor="dropdown">You Buying or Selling?</label>
-          <select id="dropdown" name="type" onChange={e => this.updateState(e)}>
-            <option >choose one</option>
+          <select required 
+            aria-required="true"
+            id="dropdown" 
+            name="type" 
+            onChange={e => this.updateState(e)}
+          >
+            <option value="">choose one</option>
             <option value="buy" >Buy</option>
             <option  value="sell" >Sell</option>
           </select>
 
           <label htmlFor="price">Price?</label>
-          <input id="price" 
+          <input required 
+            aria-required="true"
+            id="price" 
             name="price" 
             type="number" 
             placeholder="000.00000"
@@ -61,7 +68,9 @@ export class Form extends Component {
             value={this.state.price}/>    
 
           <label htmlFor="volume">Volume?</label>
-          <input id="volume" 
+          <input required 
+            aria-required="true"
+            id="volume" 
             name="volume" 
             type="number" 
             placeholder="000.00000"
@@ -69,7 +78,9 @@ export class Form extends Component {
             value={this.state.volume}/>
          
           <label htmlFor="total">Total?</label>
-          <input id="total" 
+          <input required 
+            aria-required="true"
+            id="total" 
             name="total" 
             type="number" 
             placeholder="1 000.00000"

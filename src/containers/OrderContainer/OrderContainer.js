@@ -35,16 +35,16 @@ export const OrderContainer = ({orders}) => {
 
   return (
     <main>
+      <h3>Bids</h3>
       <article>
-        <h3>Bids</h3>
         { displayBids }
       </article>
+      <h3>All Orders</h3>
       <article>
-        <h3>All Orders</h3>
         { displayOrders }
       </article>
+      <h3>Asks</h3>
       <article>
-        <h3>Asks</h3>
         { displayAsks }
       </article>
     </main>
