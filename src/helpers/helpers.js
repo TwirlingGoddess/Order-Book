@@ -1,4 +1,4 @@
-export const organizeBids = (orders) => {
+export const organizeBids = orders => {
   const bidsArray = []
   var bids = orders.filter(order => order.type === 'bid')
   var bidsSortedByVolume = bids.map(order => order.volume ).sort((a, b) => b - a)    
@@ -10,7 +10,7 @@ export const organizeBids = (orders) => {
   return bidsArray
 }
 
-export const  organizeAsks = (orders) => {
+export const  organizeAsks = orders => {
   const asksArray = []
   var asks = orders.filter(order => order.type === 'ask')
   var asksSortedByVolume = asks.map(order => order.volume ).sort((a, b) => a - b)

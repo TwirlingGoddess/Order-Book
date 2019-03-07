@@ -1,6 +1,13 @@
-.UserSection {
+.userSection {
   display: flex;
   flex-direction: row;
+  width: inherit;
   /*align-items: space-around;*/
   /*justify-content: space-around;*/
+}
+
+.sideBar {
+  display: inline-block;
+  display: flex;
+  flex-direction: row;
 }

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import User from '../../containers/User/User';
-import Form from '../../containers/Form/Form';
-import Orders from '../../containers/Orders/Orders';
-import FilterMenu from '../FilterMenu/FilterMenu';
+import User from '../User/User';
+import Form from '../Form/Form';
+import SideNav from '../SideNav/SideNav';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { storeOrders } from '../../actions';
 var orders = require('../../assets/order-book.json');
-import OrderContainer from '../../containers/OrderContainer/OrderContainer';
-
+import OrderContainer from '../OrderContainer/OrderContainer';
 import './App.css';
 
 export class App extends Component {
@@ -17,18 +15,21 @@ export class App extends Component {
     this.props.storeOrders(orders)
   }
 
-        // <Orders />
 
   render() {
     return(
       <div className="App">
         <h1>BitCoin Order Book</h1>
-        <div className="UserSection">
-          <User />
-          <Form />
+        <div className="sideBar">
+          <div>
+            <div className="userSection">
+              <User />
+              <Form />
+            </div>
+            <OrderContainer />
+          </div>
+          <SideNav />
         </div>
-        <FilterMenu />
-        <OrderContainer />
       </div>
     )
   }

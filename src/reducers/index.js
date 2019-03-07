@@ -1,16 +1,14 @@
 import { combineReducers } from 'redux';
 import userReducer from './userReducer';
 import ordersReducer from './ordersReducer';
-import bidsReducer from './bidsReducer';
-import asksReducer from './asksReducer';
+import activeReducer from './activeReducer';
 import filterReducer from './filterReducer';
 
 
 const rootReducer = combineReducers({
   user: userReducer,
   orders: ordersReducer,
-  asks: asksReducer,
-  bids: bidsReducer,
+  active: activeReducer,
   filter: filterReducer
 });
 

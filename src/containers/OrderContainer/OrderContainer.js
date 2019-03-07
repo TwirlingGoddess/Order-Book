@@ -1,26 +1,9 @@
 import React from 'react';
 import Order from '../../components/Order/Order';
-import { toggleOrder } from '../../actions';
 import { connect } from 'react-redux';
-import { store } from '../../index.js';
 import PropTypes from 'prop-types';
 import { organizeBids, organizeAsks } from '../../helpers/helpers';
 import './OrderContainer.css';
-
-
-const getFilteredOrders = (orders, filter) => {
-      console.log(orders, filter)
-  switch (filter) {
-    case 'SHOW_ALL':
-      return orders
-    case 'SHOW_CLOSED':
-      return orders.filter(order => order.closed)
-    case 'SHOW_OPEN':
-      return orders.filter(order => !order.closed)
-    default:
-      return new Error('Unknown filter: ' + filter)
-  }
-};
 
 export const OrderContainer = ({orders}) => {
   const displayBids = organizeBids(orders).map(order => (
@@ -52,16 +35,10 @@ export const OrderContainer = ({orders}) => {
 };
 
 export const mapStateToProps = state => ({
-  orders: getFilteredOrders(state.orders, state.filter)
+  orders:state.orders
 });
-// export const mapDispatchToProps = dispatch => ({
-  // storeAsks: asks => dispatch(storeAsks(asks)),
-  // storeBids: bids => dispatch(storeBids(bids)),
-// });
 
 OrderContainer.propTypes = {
-  // storeAsks: PropTypes.func.isRequired,
-  // storeBids: PropTypes.func.isRequired,
   orders: PropTypes.array.isRequired
 };
 

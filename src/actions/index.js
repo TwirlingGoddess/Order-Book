@@ -13,28 +13,21 @@ export const storeOrders = orders => ({
   orders
 });
 
-export const storeAsks = asks => ({
-  type: 'STORE_ASKS',
-  asks
-});
-
-export const storeBids = bids => ({
-  type: 'STORE_BIDS',
-  bids
-});
-
 export const updateUser = balances => ({
   type: 'UPDATE_USER',
   balances
 });
 
-export const saveOrder = order => ({
-  type: 'SAVE_ORDER',
+// create dividers that signify which reducer each action belongs to
+
+export const updateActive = order => ({
+  type: 'UPDATE_ACTIVE',
   order
 });
-export const displayOrders = orders => ({
+
+export const displayOrders = activeOrders => ({
   type: 'DISPLAY_ORDERS',
-  orders
+  activeOrders
 });
 
 export const setFilter = filter => ({
@@ -42,7 +35,17 @@ export const setFilter = filter => ({
   filter
 });
 
-export const toggleOrder = (id) => ({
+export const toggleOrder = id => ({
   type: 'TOGGLE_ORDER',
   id
+});
+
+export const addOrder = order => ({
+  type: 'ADD_ORDER',
+  order
+})
+
+export const removeOrder = order => ({
+  type: 'REMOVE_ORDER',
+  order
 })
