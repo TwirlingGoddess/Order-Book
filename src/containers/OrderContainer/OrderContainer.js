@@ -1,45 +1,44 @@
 import React from 'react';
 import Order from '../../components/Order/Order';
 import { connect } from 'react-redux';
+import { store } from '../../index.js';
 import PropTypes from 'prop-types';
-import { organizeBids, organizeAsks } from '../../helpers/helpers';
 import './OrderContainer.css';
 
-export const OrderContainer = ({orders}) => {
-  const displayBids = organizeBids(orders).map(order => (
+
+export const OrderContainer = ({bidsInStore, asksInStore, spreadInStore}) => {
+  const displayAsks = asksInStore.map(order => (
     <Order {...order} key={order.id} />
   ))
-  const displayOrders = orders.map(order => (
-    <Order {...order} key={order.id} />
-  ))
-  const displayAsks = organizeAsks(orders).map(order => (
+  const displayBids = bidsInStore.map(order => (
     <Order {...order} key={order.id} />
   ))
 
   return (
     <main>
-      <h3>Bids</h3>
-      <article>
-        { displayBids }
-      </article>
-      <h3>All Orders</h3>
-      <article>
-        { displayOrders }
-      </article>
       <h3>Asks</h3>
-      <article>
+      <article className="columns">
         { displayAsks }
+      </article>
+      <h3>SPREAD: { spreadInStore }</h3>
+      <h3>Bids</h3>
+      <article className="columns">
+        { displayBids }
       </article>
     </main>
   )
 };
 
 export const mapStateToProps = state => ({
-  orders:state.orders
+  bidsInStore: state.bids,
+  asksInStore: state.asks,
+  spreadInStore: state.spread
 });
 
 OrderContainer.propTypes = {
-  orders: PropTypes.array.isRequired
+  bidsInStore: PropTypes.array.isRequired,
+  asksInStore: PropTypes.array.isRequired,
+  spreadInStore: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, null)(OrderContainer)

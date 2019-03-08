@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateUser, updateActive, removeOrder, addOrder } from '../../actions';
+import { updateUser, updateActive, removeBid, addBid, removeAsk, addAsk } from '../../actions';
 import { classifyActive } from '../../helpers/helpers';
 import { store } from '../../index.js'
 import './Form.css';
@@ -41,43 +41,52 @@ export class Form extends Component {
     }
   };
 
-  // create clear input fields function
+  clearInputs() {
+    this.setState({
+      type: '',
+      price: '',
+      volume: '',
+      total: ''
+    })
+  }
 
-  // create updateStore func that has a conditional connected to store
-  updateStore() {
-    return store.getState().orders.find(order => {
-      if (this.state.type === 'bid'){
-        if(order.type ==='ask' && order.price <= this.state.price) {
+updateStore() {
+    if (this.state.type === 'bid'){
+      return store.getState().asks.find(order => {
+        if(order.price <= this.state.price) {
           console.log('bid deal')
-          this.props.removeOrder(order)
+          this.props.removeBid(order)
           const newOrder = Object.assign({}, order, {closed: true})
           this.props.updateActive(newOrder)
           return newOrder
         }
-        if(order.type ==='ask' && order.price >= this.state.price) {
+        if(order.price >= this.state.price) {
           console.log('no bid deal')
           const newOrder = Object.assign({}, this.state, {id:`My-Order-${(Math.random()*Date.now()).toFixed(3)}`, closed: false})
-          this.props.addOrder(newOrder)
+          this.props.addBid(newOrder)
           this.props.updateActive(newOrder)
           return newOrder
         }
-      } else {
-        if(order.type ==='bid' && order.price >= this.state.price) {
+      })
+    } else {
+      return store.getState().bids.find(order => {
+        if(order.price >= this.state.price) {
           console.log('ask deal')
-          this.props.removeOrder(order)
+          this.props.removeAsk(order)
           const newOrder = Object.assign({}, order, {closed: true})
           this.props.updateActive(newOrder)
           return newOrder
         }
-        if(order.type ==='ask' && order.price <= this.state.price) {
+        if(order.price <= this.state.price) {
           console.log('no ask deal')
           const newOrder = Object.assign({}, this.state, {id:`My-Order-${(Math.random()*Date.now()).toFixed(3)}`, closed: false})
-          this.props.addOrder(newOrder)
+          this.props.addAsk(newOrder)
           this.props.updateActive(newOrder)
           return newOrder
         }
-      }
-    })
+      })
+    }
+    this.clearInputs()
   }
 
   render() {
@@ -141,8 +150,10 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   updateUser: newBalances => dispatch(updateUser(newBalances)),
   updateActive: order => dispatch(updateActive(order)),
-  removeOrder: order => dispatch(removeOrder(order)),
-  addOrder: order => dispatch(addOrder(order))
+  removeAsk: ask => dispatch(removeAsk(ask)),
+  removeBid: bid => dispatch(removeBid(bid)),
+  addAsk: ask => dispatch(addAsk(ask)),
+  addBid: bid => dispatch(addBid(bid))
 })
 
 Form.propTypes = {

@@ -4,7 +4,8 @@ import Form from '../Form/Form';
 import SideNav from '../SideNav/SideNav';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { storeOrders } from '../../actions';
+import { organizeBids, organizeAsks } from '../../helpers/helpers';
+import { storeAsks, storeBids, storeSpread } from '../../actions';
 var orders = require('../../assets/order-book.json');
 import OrderContainer from '../OrderContainer/OrderContainer';
 import './App.css';
@@ -12,24 +13,31 @@ import './App.css';
 export class App extends Component {
 
   componentDidMount() {
-    this.props.storeOrders(orders)
+    const asks = organizeAsks(orders);
+    const bids = organizeBids(orders);
+    this.props.storeAsks(asks);
+    this.props.storeBids(bids);
+    const spread = bids[0].volume - asks[0].volume
+    this.props.storeSpread(spread)
   }
 
 
   render() {
     return(
       <div className="App">
-        <h1>BitCoin Order Book</h1>
-        <div className="sideBar">
-          <div>
+        <section>
+          <h1>BitCoin Order Book</h1>
+          <div className="mainSection">
             <div className="userSection">
               <User />
               <Form />
             </div>
             <OrderContainer />
           </div>
-          <SideNav />
-        </div>
+        </section>
+          <div className="sideBar">
+            <SideNav />
+          </div>
       </div>
     )
   }
@@ -39,6 +47,9 @@ export class App extends Component {
 
 export const mapDispatchToProps = dispatch => ({
   storeOrders: orders => dispatch(storeOrders(orders)),
+  storeAsks: asks => dispatch(storeAsks(asks)),
+  storeBids: bids => dispatch(storeBids(bids)),
+  storeSpread: spread => dispatch(storeSpread(spread))
 });
 
 export default connect(null, mapDispatchToProps)(App)

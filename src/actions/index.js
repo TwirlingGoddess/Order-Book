@@ -13,6 +13,21 @@ export const storeOrders = orders => ({
   orders
 });
 
+export const storeAsks = asks => ({
+  type: 'STORE_ASKS',
+  asks
+});
+
+export const storeBids = bids => ({
+  type: 'STORE_BIDS',
+  bids
+});
+
+export const storeSpread = spread => ({
+  type: 'STORE_SPREAD',
+  spread
+});
+
 export const updateUser = balances => ({
   type: 'UPDATE_USER',
   balances
@@ -40,12 +55,22 @@ export const toggleOrder = id => ({
   id
 });
 
-export const addOrder = order => ({
-  type: 'ADD_ORDER',
-  order
-})
+export const addAsk = ask => ({
+  type: 'ADD_ASK',
+  ask
+});
 
-export const removeOrder = order => ({
-  type: 'REMOVE_ORDER',
-  order
-})
+export const removeAsk = ask => ({
+  type: 'REMOVE_ASK',
+  ask
+});
+
+export const addBid = bid => ({
+  type: 'ADD_BID',
+  bid
+});
+
+export const removeBid = bid => ({
+  type: 'REMOVE_BID',
+  bid
+});

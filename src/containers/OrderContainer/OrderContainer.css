@@ -1,7 +1,8 @@
-article {
+.columns {
   width: 100%;
+  height: 30%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: space-around;
-  overflow: scroll;
+  /*overflow: scroll;*/
 }
