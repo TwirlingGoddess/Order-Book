@@ -26,7 +26,7 @@ export class App extends Component {
     return(
       <div className="App">
         <section>
-          <h2 className="title">BitCoin Order Book</h2>
+          <h2 className="title">TestCoin Order Book</h2>
           <div className="mainSection">
             <div className="userSection">
               <User />
