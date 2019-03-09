@@ -11,8 +11,8 @@ const Order = ({ id, price, volume, total, closed}) => {
       }
     >
       <h4>{ price }</h4>
-      <h4>{ volume }</h4>
-      <h4>{ (price * volume).toFixed(5) }</h4>
+      <h4>{ (volume * 1).toFixed(5) }</h4>
+      <h4>{ (price * volume).toFixed(5)}</h4>
     </aside>
   )
 };
