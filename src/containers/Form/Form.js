@@ -130,7 +130,7 @@ export class Form extends Component {
     return(
       <div className="Form">
         <form onSubmit={e => this.inputSubmit(e)}>
-          <label htmlFor="dropdown">You Buying or Selling?</label>
+          <label htmlFor="dropdown">Bidding or Asking?</label>
           <select required 
             aria-required="true"
             id="dropdown" 

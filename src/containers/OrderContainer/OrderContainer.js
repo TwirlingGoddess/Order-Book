@@ -24,7 +24,7 @@ export const OrderContainer = ({bidsInStore, asksInStore, spreadInStore}) => {
       <article className="columns">
         { displayAsks }
       </article>
-      <h4>SPREAD: { spreadInStore }</h4>
+      <h4 className="spread">SPREAD: { spreadInStore }</h4>
       <article className="columns">
         { displayBids }
       </article>

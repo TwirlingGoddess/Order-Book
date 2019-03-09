@@ -12,3 +12,15 @@
     letter-spacing:.5px;
     font-size: 16px;
 }
+
+.Order:hover {
+    background-color: white;
+}
+
+.ask {
+    color: red;
+}
+
+.bid {
+    color: green;
+}

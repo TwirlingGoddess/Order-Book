@@ -1,7 +1,7 @@
 import React from 'react';
 import './Order.css';
 
-const Order = ({ id, price, volume, total, closed}) => {
+const Order = ({ id, price, volume, total, closed, type}) => {
   return (
     <aside
       className="Order"
@@ -12,7 +12,7 @@ const Order = ({ id, price, volume, total, closed}) => {
     >
       <h4>{ price }</h4>
       <h4>{ (volume * 1).toFixed(5) }</h4>
-      <h4>{ (price * volume).toFixed(5)}</h4>
+      <h4 className={ type }>{ (price * volume).toFixed(5)}</h4>
     </aside>
   )
 };
