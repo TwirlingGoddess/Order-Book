@@ -4,6 +4,7 @@ export const organizeBids = orders => {
   var bidsSortedByVolume = bids.map(order => order.volume ).sort((a, b) => b - a)    
     bidsSortedByVolume.forEach((num) => orders.forEach((order) => {
       if(num === order.volume && order.type === "bid") {
+        order['total']=(order.volume*order.price).toFixed(5)
         bidsArray.push(order)
       }
     }))
@@ -16,6 +17,7 @@ export const  organizeAsks = orders => {
   var asksSortedByVolume = asks.map(order => order.volume ).sort((a, b) => a - b)
     asksSortedByVolume.forEach((num) => orders.forEach((order) => {
       if(num === order.volume && order.type ==="ask") {
+        order['total']=(order.volume*order.price).toFixed(5)
         asksArray.push(order)
       }
     }))

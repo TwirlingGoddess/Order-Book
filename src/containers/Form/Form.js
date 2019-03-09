@@ -11,6 +11,7 @@ export class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      id: (Math.random()*2.85714286).toFixed(5),
       type: '',
       price: '',
       volume: '',
@@ -24,14 +25,20 @@ export class Form extends Component {
     const newBTC = Number.parseFloat(this.props.user.TestCoin).toFixed(5) - Number.parseFloat(this.state.price).toFixed(5);
     const newBalances = [{symbol: "PHP", balance: newPHP}, {symbol: "TestCoin", balance: newBTC}];
     this.props.updateUser(newBalances);
-    this.updateStore();
+    if(this.state.type === 'bid'){
+
+     return this.matchAsks();
+    } else {
+      return this.matchBids()
+    }
   };
 
   updateState(e) {
     const { name, value} = e.target;
-    if(name === "total" || name === "volume") {
+    if(name === "total") {
+      const newVolume = value / this.state.price
       this.setState({
-        volume: value,
+        volume: newVolume,
         total: value
       })
     } else {
@@ -50,43 +57,72 @@ export class Form extends Component {
     })
   }
 
-updateStore() {
-    if (this.state.type === 'bid'){
-      return store.getState().asks.find(order => {
-        if(order.price <= this.state.price) {
-          console.log('bid deal')
-          this.props.removeBid(order)
-          const newOrder = Object.assign({}, order, {closed: true})
+  matchAsks() {
+    const statePrice = Number(this.state.price)
+    const stateVolume = Number(this.state.volume)
+    return this.props.asks.find(ask => {
+    const askPrice = Number(ask.price)
+    const askVolume = Number(ask.volume)
+      if(askPrice === statePrice) {   
+        const newVolume = askVolume - stateVolume;
+        const newAskTotal = newVolume * statePrice
+        const newOrderTotal = stateVolume * statePrice
+        const newBookAsk = Object.assign({}, ask, {volume: newVolume, total: newAskTotal, id: Date.now()})
+        const newOrder = Object.assign({}, ask, {volume: stateVolume, closed: true, total: newOrderTotal})
+        if(askVolume > stateVolume) {
+          this.props.removeAsk(ask)
+          this.props.addAsk(newBookAsk)
           this.props.updateActive(newOrder)
-          return newOrder
-        }
-        if(order.price >= this.state.price) {
-          console.log('no bid deal')
-          const newOrder = Object.assign({}, this.state, {id:`My-Order-${(Math.random()*Date.now()).toFixed(3)}`, closed: false})
-          this.props.addBid(newOrder)
+          this.clearInputs()
+        } else if(askVolume === stateVolume){
+          this.props.removeAsk(ask)
           this.props.updateActive(newOrder)
+          this.clearInputs()
+        } return newOrder
+      } else {
+        console.log('no bid deal')
+        const newBidOrder = Object.assign({}, this.state, {closed: false, id: Date.now()})
+        this.props.addBid(newBidOrder)
+        this.props.updateActive(newBidOrder)
+        this.clearInputs()
+        return newBidOrder
+      }
           return newOrder
-        }
-      })
-    } else {
-      return store.getState().bids.find(order => {
-        if(order.price >= this.state.price) {
-          console.log('ask deal')
-          this.props.removeAsk(order)
-          const newOrder = Object.assign({}, order, {closed: true})
+    }) 
+  }
+
+  matchBids() {
+    const statePrice = Number(this.state.price)
+    const stateVolume = Number(this.state.volume)
+    return this.props.bids.find(bid => {
+    const bidPrice = Number(bid.price)
+    const bidVolume = Number(bid.volume)
+      if(bidPrice === statePrice) {   
+        const newVolume = bidVolume - stateVolume;
+        const newBidTotal = newVolume * statePrice
+        const newOrderTotal = stateVolume * statePrice
+        const newBookBid = Object.assign({}, bid, {volume: newVolume, total: newBidTotal, id: Date.now()})
+        const newOrder = Object.assign({}, bid, {volume: stateVolume, closed: true, total: newOrderTotal})
+        if(bidVolume > stateVolume) {
+          this.props.removeBid(bid)
+          this.props.addBid(newBookBid)
           this.props.updateActive(newOrder)
-          return newOrder
-        }
-        if(order.price <= this.state.price) {
-          console.log('no ask deal')
-          const newOrder = Object.assign({}, this.state, {id:`My-Order-${(Math.random()*Date.now()).toFixed(3)}`, closed: false})
-          this.props.addAsk(newOrder)
+          this.clearInputs()
+        } else if(bidVolume === stateVolume){
+          this.props.removeBid(bid)
           this.props.updateActive(newOrder)
+          this.clearInputs()
+        } return newOrder
+      } else {
+        console.log('no bid deal')
+        const newBidOrder = Object.assign({}, this.state, {closed: false, id: Date.now()})
+        this.props.addAsk(newBidOrder)
+        this.props.updateActive(newBidOrder)
+        this.clearInputs()
+        return newBidOrder
+      }
           return newOrder
-        }
-      })
-    }
-    this.clearInputs()
+    }) 
   }
 
   render() {
@@ -94,12 +130,13 @@ updateStore() {
     return(
       <div className="Form">
         <form onSubmit={e => this.inputSubmit(e)}>
-          <label htmlFor="dropdown">You Buying or Selling?</label>
+          <label htmlFor="dropdown">Bidding or Asking?</label>
           <select required 
             aria-required="true"
             id="dropdown" 
             name="type" 
             onChange={e => this.updateState(e)}
+            value={this.state.type}
           >
             <option value="">choose one</option>
             <option value="bid">Bid</option>
@@ -134,7 +171,7 @@ updateStore() {
             type="number" 
             placeholder="1 000.00000"
             onChange={e => this.updateState(e)}
-            value={this.state.volume}/>
+            value={this.state.price * this.state.volume}/>
 
           <button>submit</button>
         </form>
@@ -145,6 +182,8 @@ updateStore() {
 
 export const mapStateToProps = state => ({
   user: state.user,
+  asks: state.asks,
+  bids: state.bids
 })
 
 export const mapDispatchToProps = dispatch => ({
@@ -158,8 +197,14 @@ export const mapDispatchToProps = dispatch => ({
 
 Form.propTypes = {
   user: PropTypes.object.isRequired,
+  asks: PropTypes.array.isRequired,
+  bids: PropTypes.array.isRequired,
   updateUser: PropTypes.func.isRequired,
-  updateActive: PropTypes.func.isRequired
+  updateActive: PropTypes.func.isRequired,
+  removeAsk: PropTypes.func.isRequired,
+  removeBid: PropTypes.func.isRequired,
+  addAsk: PropTypes.func.isRequired,
+  addBid: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
