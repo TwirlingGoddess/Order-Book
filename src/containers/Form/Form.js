@@ -140,7 +140,7 @@ export class Form extends Component {
           >
             <option value="">choose one</option>
             <option value="bid">Bid</option>
-            <option  value="ask">Ask</option>
+            <option value="ask">Ask</option>
           </select>
 
           <label htmlFor="price">Price?</label>

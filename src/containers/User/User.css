@@ -7,3 +7,17 @@
 .User {
   font-size: large;
 }
+
+.bidAskBox {
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+h3 .bids {
+  color: green;
+}
+
+h3 .asks {
+  color: red;
+}
