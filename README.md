@@ -2,7 +2,7 @@
 
 ```npm install```  to download the app
 
-``cd orderBook```  to enter the app file
+```cd orderBook```  to enter the app file
 
 ```npm start```    to run the app
 
