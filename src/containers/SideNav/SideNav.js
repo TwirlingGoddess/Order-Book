@@ -33,7 +33,7 @@ export const SideNav = ({activeOrders}) => {
         <h3 className="menu">
           <p>Price</p> 
           <p>Volume</p> 
-          <p>Type</p>
+          <p>Type/Total</p>
         </h3>
         { userOrders }
       </article>
