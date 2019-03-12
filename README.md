@@ -54,7 +54,4 @@ Create a React component that will display the user’s closed and open orders. 
 - Price
 - Volume
 - Type (bid or ask)
-Closed orders​ are orders that are already filled; ​Open orders​ are orders that have not yet been matched.
-
-### Task 6: Testing Redux
-Try to deploy to heroku and connect CLI as well if you have time.
+Closed orders​ are orders that are already filled; ​Open orders​ are orders that have not yet been matched
