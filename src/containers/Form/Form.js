@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateUser, updateActive, removeBid, addBid, removeAsk, addAsk } from '../../actions';
-import { classifyActive } from '../../helpers/helpers';
+import { organizeAsks, organizeBids } from '../../helpers/helpers';
 import { store } from '../../index.js'
 import './Form.css';
 
@@ -70,15 +70,22 @@ export class Form extends Component {
         const newBookAsk = Object.assign({}, ask, {volume: newVolume, total: newAskTotal, id: Date.now()})
         const newOrder = Object.assign({}, ask, {volume: stateVolume, closed: true, total: newOrderTotal})
         if(askVolume > stateVolume) {
-          this.props.removeAsk(ask)
           this.props.addAsk(newBookAsk)
           this.props.updateActive(newOrder)
-          this.clearInputs()
-        } else if(askVolume === stateVolume){
-          this.props.removeAsk(ask)
+        } else if(askVolume === stateVolume) {
           this.props.updateActive(newOrder)
+        } else if(askVolume < stateVolume) {
+          const edgeVolume = stateVolume - askVolume;
+          const edgeBidTotal = edgeVolume * statePrice
+          const edgeBidOrder = Object.assign({}, this.state, {volume: edgeVolume, total: edgeBidTotal, id: Date.now()})
+          const newAsk = Object.assign({}, {closed: true}, ask)
+          this.props.updateActive(newAsk)
+          this.props.addBid(edgeBidOrder)
+          this.props.updateActive(edgeBidOrder)
+        }
+          this.props.removeAsk(ask)
           this.clearInputs()
-        } return newOrder
+        return newOrder
       } else {
         console.log('no bid deal')
         const newBidOrder = Object.assign({}, this.state, {closed: false, id: Date.now()})
@@ -87,7 +94,7 @@ export class Form extends Component {
         this.clearInputs()
         return newBidOrder
       }
-          return newOrder
+      return newOrder
     }) 
   }
 
@@ -104,19 +111,26 @@ export class Form extends Component {
         const newBookBid = Object.assign({}, bid, {volume: newVolume, total: newBidTotal, id: Date.now()})
         const newOrder = Object.assign({}, bid, {volume: stateVolume, closed: true, total: newOrderTotal})
         if(bidVolume > stateVolume) {
+          // look for ways to pass JUST the id, for filtering out, 
           this.props.removeBid(bid)
+          // use the whole object for adding
           this.props.addBid(newBookBid)
+          // create new object for active order objects
           this.props.updateActive(newOrder)
           this.clearInputs()
         } else if(bidVolume === stateVolume){
+          // look for ways to pass JUST the id, for filtering out, 
           this.props.removeBid(bid)
+          // create new object for active order objects
           this.props.updateActive(newOrder)
           this.clearInputs()
         } return newOrder
       } else {
         console.log('no bid deal')
         const newBidOrder = Object.assign({}, this.state, {closed: false, id: Date.now()})
+          // use the whole object for adding
         this.props.addAsk(newBidOrder)
+          // create new object for active order objects
         this.props.updateActive(newBidOrder)
         this.clearInputs()
         return newBidOrder
@@ -192,7 +206,10 @@ export const mapDispatchToProps = dispatch => ({
   removeAsk: ask => dispatch(removeAsk(ask)),
   removeBid: bid => dispatch(removeBid(bid)),
   addAsk: ask => dispatch(addAsk(ask)),
-  addBid: bid => dispatch(addBid(bid))
+  addBid: bid => dispatch(addBid(bid)),
+  storeAsks: asks => dispatch(storeAsks(asks)),
+  storeBids: bids => dispatch(storeBids(bids)),
+  storeSpread: spread => dispatch(storeSpread(spread))
 })
 
 Form.propTypes = {
@@ -204,7 +221,10 @@ Form.propTypes = {
   removeAsk: PropTypes.func.isRequired,
   removeBid: PropTypes.func.isRequired,
   addAsk: PropTypes.func.isRequired,
-  addBid: PropTypes.func.isRequired
+  addBid: PropTypes.func.isRequired,
+  storeAsks: PropTypes.func,
+  storeBids: PropTypes.func,
+  storeSpread: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

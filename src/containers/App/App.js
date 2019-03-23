@@ -52,4 +52,11 @@ export const mapDispatchToProps = dispatch => ({
   storeSpread: spread => dispatch(storeSpread(spread))
 });
 
+App.propTypes = {
+  storeOrders: PropTypes.func.isRequired,
+  storeAsks: PropTypes.func.isRequired,
+  storeBids: PropTypes.func.isRequired,
+  storeSpread: PropTypes.func.isRequired
+}
+
 export default connect(null, mapDispatchToProps)(App)
