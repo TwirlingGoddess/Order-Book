@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateUser, updateActive, removeBid, addBid, removeAsk, addAsk, storeAsks, storeBids, storeSpread } from '../../actions';
+import { updateUser, updateActive, updateBid, removeBid, addBid, removeAsk, addAsk, storeAsks, storeBids, storeSpread } from '../../actions';
 import { organizeAsks, organizeBids } from '../../helpers/helpers';
 import { store } from '../../index.js'
 import './Form.css';
@@ -112,7 +112,7 @@ export class Form extends Component {
   matchBids() {
     const statePrice = Number(this.state.price)
     const stateVolume = Number(this.state.volume)
-    return this.props.bids.find(bid => {
+    return this.props.bids.find((bid, index) => {
     const bidPrice = Number(bid.price)
     const bidVolume = Number(bid.volume)
       if(bidPrice === statePrice) {   
@@ -122,20 +122,22 @@ export class Form extends Component {
         const newBookBid = Object.assign({}, bid, {volume: newVolume, total: newBidTotal, id: Date.now()})
         const newOrder = Object.assign({}, bid, {volume: stateVolume, closed: true, total: newOrderTotal})
         if(bidVolume > stateVolume) {
-          this.props.addBid(newBookBid)
+          this.props.updateBid(index, newBookBid)
+          // this.props.addBid(newBookBid)
           this.props.updateActive(newOrder)
         } else if(bidVolume === stateVolume){
+          this.props.removeBid(bid)
           this.props.updateActive(newOrder)
         }  else if(bidVolume < stateVolume) {
           const edgeVolume = stateVolume - bidVolume;
           const edgeAskTotal = edgeVolume * statePrice
           const edgeAskOrder = Object.assign({}, this.state, {volume: edgeVolume, total: edgeAskTotal, id: Date.now()})
           const newBid = Object.assign({}, {closed: true}, bid)
+          this.props.removeBid(bid)
           this.props.updateActive(newBid)
           this.props.addAsk(edgeAskOrder)
           this.props.updateActive(edgeAskOrder)
         }
-        this.props.removeBid(bid)
         this.clearInputs()
         return newOrder
       } else {
@@ -212,6 +214,7 @@ export const mapStateToProps = state => ({
 })
 
 export const mapDispatchToProps = dispatch => ({
+  updateBid: (oldBid, newBid) => dispatch(updateBid(oldBid, newBid)),
   updateUser: newBalances => dispatch(updateUser(newBalances)),
   updateActive: order => dispatch(updateActive(order)),
   removeAsk: ask => dispatch(removeAsk(ask)),
