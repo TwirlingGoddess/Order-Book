@@ -1,17 +1,27 @@
 const initialState = []
+import { organizeAsks } from '../helpers/helpers';
 
 const asksReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'STORE_ASKS':
       return action.asks
       break;
     case 'REMOVE_ASK':
       return state.filter(ask => ask !== action.ask)
-      // state.find(obj=> obj.id !== action.ask.id) maybe?
       break;
     case 'ADD_ASK':
       return [...state, action.ask]
-      // state.find(obj=> obj.id !== action.ask.id) even if that means make new reducer case 
+      break;
+    case 'UPDATE_ASK':
+      const array = state.map((ask, index) => {
+        if(index === action.index){
+          return state[index]= action.newAsk
+        } else {
+          return ask
+        }
+        return
+      })
+      return organizeAsks(array)
     default:
       return state
   }

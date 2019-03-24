@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateUser, updateActive, updateBid, removeBid, addBid, removeAsk, addAsk, storeAsks, storeBids, storeSpread } from '../../actions';
+import { updateUser, updateActive, updateBid, updateAsk, removeBid, addBid, removeAsk, addAsk, storeAsks, storeBids, storeSpread } from '../../actions';
 import { organizeAsks, organizeBids } from '../../helpers/helpers';
 import { store } from '../../index.js'
 import './Form.css';
@@ -60,7 +60,7 @@ export class Form extends Component {
   matchAsks() {
     const statePrice = Number(this.state.price)
     const stateVolume = Number(this.state.volume)
-    this.props.asks.find(ask => {
+    this.props.asks.find((ask, index) => {
     const askPrice = Number(ask.price)
     const askVolume = Number(ask.volume)
       if(askPrice === statePrice) {   
@@ -70,7 +70,7 @@ export class Form extends Component {
         const newBookAsk = Object.assign({}, ask, {volume: newVolume, total: newAskTotal, id: Date.now()})
         const newOrder = Object.assign({}, ask, {volume: stateVolume, closed: true, total: newOrderTotal})
         if(askVolume > stateVolume) {
-          this.props.addAsk(newBookAsk)
+          this.props.updateAsk(index, newBookAsk)
           this.props.updateActive(newOrder)
         } else if(askVolume === stateVolume) {
           this.props.updateActive(newOrder)
@@ -96,18 +96,7 @@ export class Form extends Component {
       }
       return newOrder
     }) 
-    // this.updateRender()
   }
-
-  // updateRender() {
-  //   const asks = organizeAsks(this.props.asks);
-  //   const bids = organizeBids(this.props.bids);
-  //   console.log(asks, bids)
-  //   this.props.storeAsks(asks);
-  //   this.props.storeBids(bids);
-  //   const spread = bids[0].volume - asks[0].volume
-  //   this.props.storeSpread(spread)
-  // }
 
   matchBids() {
     const statePrice = Number(this.state.price)
@@ -123,7 +112,6 @@ export class Form extends Component {
         const newOrder = Object.assign({}, bid, {volume: stateVolume, closed: true, total: newOrderTotal})
         if(bidVolume > stateVolume) {
           this.props.updateBid(index, newBookBid)
-          // this.props.addBid(newBookBid)
           this.props.updateActive(newOrder)
         } else if(bidVolume === stateVolume){
           this.props.removeBid(bid)
@@ -214,7 +202,8 @@ export const mapStateToProps = state => ({
 })
 
 export const mapDispatchToProps = dispatch => ({
-  updateBid: (oldBid, newBid) => dispatch(updateBid(oldBid, newBid)),
+  updateAsk: (index, newBid) => dispatch(updateAsk(index, newBid)),
+  updateBid: (index, newBid) => dispatch(updateBid(index, newBid)),
   updateUser: newBalances => dispatch(updateUser(newBalances)),
   updateActive: order => dispatch(updateActive(order)),
   removeAsk: ask => dispatch(removeAsk(ask)),

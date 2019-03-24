@@ -7,16 +7,14 @@ const bidsReducer = (state = initialState, action) => {
       return action.bids      
       break;
     case 'REMOVE_BID':
-      // state.find(obj=> obj.id !== action.ask.id) maybe?
       return state.filter(bid => bid !== action.bid)
       break;
     case 'ADD_BID':
-      // state.find(obj=> obj.id !== action.ask.id) even if that means make new reducer case 
       return [...state, action.bid]
       break;
     case 'UPDATE_BID':
       const array = state.map((bid, index) => {
-        if(index === action.oldBid){
+        if(index === action.index){
           return state[index]= action.newBid
         } else {
           return bid
