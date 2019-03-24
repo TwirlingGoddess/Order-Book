@@ -75,14 +75,14 @@ export const removeBid = bid => ({
   bid
 });
 
-export const updateBid = (index, newBid) => ({
+export const updateBid = (id, newBid) => ({
   type: 'UPDATE_BID',
-  index,
+  id,
   newBid
 })
 
-export const updateAsk = (index, newAsk) => ({
+export const updateAsk = (id, newAsk) => ({
   type: 'UPDATE_ASK',
-  index,
+  id,
   newAsk
 })

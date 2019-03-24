@@ -14,7 +14,7 @@ const asksReducer = (state = initialState, action) => {
       break;
     case 'UPDATE_ASK':
       const array = state.map(ask => {
-        if(ask.id === action.index){
+        if(ask.id === action.id){
           return ask = action.newAsk
         } else {
           return ask

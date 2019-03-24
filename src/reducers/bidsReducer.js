@@ -13,9 +13,9 @@ const bidsReducer = (state = initialState, action) => {
       return organizeBids([...state, action.bid])
       break;
     case 'UPDATE_BID':
-      const array = state.map((bid, index) => {
-        if(index === action.index){
-          return state[index]= action.newBid
+      const array = state.map(bid => {
+        if(bid.id === action.id){
+          return bid = action.newBid
         } else {
           return bid
         }
