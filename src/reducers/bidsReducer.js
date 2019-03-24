@@ -10,7 +10,7 @@ const bidsReducer = (state = initialState, action) => {
       return state.filter(bid => bid !== action.bid)
       break;
     case 'ADD_BID':
-      return [...state, action.bid]
+      return organizeBids([...state, action.bid])
       break;
     case 'UPDATE_BID':
       const array = state.map((bid, index) => {

@@ -10,12 +10,12 @@ const asksReducer = (state = initialState, action) => {
       return state.filter(ask => ask !== action.ask)
       break;
     case 'ADD_ASK':
-      return [...state, action.ask]
+      return organizeAsks([...state, action.ask])
       break;
     case 'UPDATE_ASK':
-      const array = state.map((ask, index) => {
-        if(index === action.index){
-          return state[index]= action.newAsk
+      const array = state.map(ask => {
+        if(ask.id === action.index){
+          return ask = action.newAsk
         } else {
           return ask
         }

@@ -58,19 +58,20 @@ export class Form extends Component {
   }
 
   matchAsks() {
+    debugger;
     const statePrice = Number(this.state.price)
     const stateVolume = Number(this.state.volume)
-    this.props.asks.find((ask, index) => {
-    const askPrice = Number(ask.price)
-    const askVolume = Number(ask.volume)
-      if(askPrice === statePrice) {   
+    const ask = this.props.asks.find(ask => Number(ask.price) === statePrice || null)
+      if(ask) {   
+        const askPrice = Number(ask.price)
+        const askVolume = Number(ask.volume)
         const newVolume = askVolume - stateVolume;
         const newAskTotal = newVolume * statePrice
         const newOrderTotal = stateVolume * statePrice
         const newBookAsk = Object.assign({}, ask, {volume: newVolume, total: newAskTotal, id: Date.now()})
         const newOrder = Object.assign({}, ask, {volume: stateVolume, closed: true, total: newOrderTotal})
         if(askVolume > stateVolume) {
-          this.props.updateAsk(index, newBookAsk)
+          this.props.updateAsk(ask.id, newBookAsk)
           this.props.updateActive(newOrder)
         } else if(askVolume === stateVolume) {
           this.props.updateActive(newOrder)
@@ -86,7 +87,7 @@ export class Form extends Component {
           this.props.removeAsk(ask)
           this.clearInputs()
         return newOrder
-      } else {
+      } else if(!ask) {
         console.log('no ask deal')
         const newBidOrder = Object.assign({}, this.state, {closed: false, id: Date.now()})
         this.props.addBid(newBidOrder)
@@ -95,12 +96,13 @@ export class Form extends Component {
         return newBidOrder
       }
       return newOrder
-    }) 
   }
 
   matchBids() {
     const statePrice = Number(this.state.price)
     const stateVolume = Number(this.state.volume)
+    const tester = this.props.bids.find((bid, index) => Number(bid.price) === statePrice)
+    console.log(tester)
     return this.props.bids.find((bid, index) => {
     const bidPrice = Number(bid.price)
     const bidVolume = Number(bid.volume)
