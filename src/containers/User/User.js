@@ -26,7 +26,7 @@ export class User extends Component {
       <div className="User">
         <h1>{ store.getState().user.username }</h1>
         <h2>PHP : <em>{ store.getState().user.PHP }</em></h2>
-        <h2>TestCoin: <em>{ store.getState().user.TestCoin }</em></h2>
+        <h2>TCN : <em>{ store.getState().user.TestCoin }</em></h2>
       </div>
     )
   }
