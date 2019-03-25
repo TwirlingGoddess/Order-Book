@@ -8,10 +8,10 @@ import './OrderContainer.css';
 
 export const OrderContainer = ({bidsInStore, asksInStore, spreadInStore}) => {
   const displayAsks = asksInStore.map(order => (
-    <Order {...order} key={order.id} />
+    <Order {...order}/>
   ))
   const displayBids = bidsInStore.map(order => (
-    <Order {...order} key={order.id} />
+    <Order {...order}/>
   ))
 
   return (

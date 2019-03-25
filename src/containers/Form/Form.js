@@ -11,7 +11,7 @@ export class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: (Math.random()*2.85714286).toFixed(5),
+      id: '',
       type: '',
       price: '',
       volume: '',
@@ -67,34 +67,32 @@ export class Form extends Component {
       const newVolume = askVolume - stateVolume;
       const newAskTotal = newVolume * statePrice
       const newOrderTotal = stateVolume * statePrice
-      const newBookAsk = Object.assign({}, ask, {volume: newVolume, total: newAskTotal, id: Date.now()})
+      const newBookAsk = Object.assign({}, ask, {volume: newVolume, total: newAskTotal})
       const newOrder = Object.assign({}, ask, {volume: stateVolume, closed: true, total: newOrderTotal})
       if(askVolume > stateVolume) {
         this.props.updateAsk(ask.id, newBookAsk)
         this.props.updateActive(newOrder)
       } else if(askVolume === stateVolume) {
+        this.props.removeAsk(ask)
         this.props.updateActive(newOrder)
       } else if(askVolume < stateVolume) {
         const edgeVolume = stateVolume - askVolume;
         const edgeBidTotal = edgeVolume * statePrice
-        const edgeBidOrder = Object.assign({}, this.state, {volume: edgeVolume, total: edgeBidTotal, id: Date.now()})
-        const newAsk = Object.assign({}, {closed: true}, ask)
+        const edgeBidOrder = Object.assign({}, this.state, {volume: edgeVolume, total: edgeBidTotal})
+        const newAsk = Object.assign({}, ask, {closed: true})
+        this.props.removeAsk(ask)
         this.props.updateActive(newAsk)
         this.props.addBid(edgeBidOrder)
         this.props.updateActive(edgeBidOrder)
       }
-        this.props.removeAsk(ask)
-        this.clearInputs()
+      this.clearInputs()
       return newOrder
     } else if(!ask) {
-      console.log('no ask deal')
-      const newBidOrder = Object.assign({}, this.state, {id: Date.now()})
-      this.props.addBid(newBidOrder)
-      this.props.updateActive(newBidOrder)
+      this.props.addBid(this.state)
+      this.props.updateActive(this.state)
       this.clearInputs()
-      return newBidOrder
+      return this.state
     }
-    return newOrder
   }
 
   matchBids() {
@@ -107,7 +105,7 @@ export class Form extends Component {
       const newVolume = bidVolume - stateVolume;
       const newBidTotal = newVolume * statePrice
       const newOrderTotal = stateVolume * statePrice
-      const newBookBid = Object.assign({}, bid, {volume: newVolume, total: newBidTotal, id: Date.now()})
+      const newBookBid = Object.assign({}, bid, {volume: newVolume, total: newBidTotal})
       const newOrder = Object.assign({}, bid, {volume: stateVolume, closed: true, total: newOrderTotal})
       if(bidVolume > stateVolume) {
         this.props.updateBid(bid.id, newBookBid)
@@ -118,8 +116,8 @@ export class Form extends Component {
       }  else if(bidVolume < stateVolume) {
         const edgeVolume = stateVolume - bidVolume;
         const edgeAskTotal = edgeVolume * statePrice
-        const edgeAskOrder = Object.assign({}, this.state, {volume: edgeVolume, total: edgeAskTotal, id: Date.now()})
-        const newBid = Object.assign({}, {closed: true}, bid)
+        const edgeAskOrder = Object.assign({}, this.state, {volume: edgeVolume, total: edgeAskTotal})
+        const newBid = Object.assign({}, bid, {closed: true})
         this.props.removeBid(bid)
         this.props.updateActive(newBid)
         this.props.addAsk(edgeAskOrder)
@@ -128,14 +126,11 @@ export class Form extends Component {
       this.clearInputs()
       return newOrder
     } else if(!bid) {
-      console.log('no bid deal')
-      const newAskOrder = Object.assign({}, this.state, {id: Date.now()})
-      this.props.addAsk(newAskOrder)
-      this.props.updateActive(newAskOrder)
+      this.props.addAsk(this.state)
+      this.props.updateActive(this.state)
       this.clearInputs()
-      return newAskOrder
+      return this.state
     }
-    return newOrder
   }
 
   render() {

@@ -1,12 +1,11 @@
 import React from 'react';
 import './Order.css';
 
-const Order = ({ id, price, volume, closed, total, type}) => {
+const Order = ({ price, volume, closed, total, type}) => {
   total = volume * price
   return (
     <aside
       className="Order"
-      key={ id }
       style={
         { textDecoration: closed ? 'line-through' : 'none' }
       }
