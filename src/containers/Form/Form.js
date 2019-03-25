@@ -86,13 +86,12 @@ export class Form extends Component {
         this.props.updateActive(edgeBidOrder)
       }
       this.clearInputs()
-      return newOrder
     } else if(!ask) {
       this.props.addBid(this.state)
       this.props.updateActive(this.state)
       this.clearInputs()
-      return this.state
     }
+    this.updateSpread()
   }
 
   matchBids() {
@@ -124,13 +123,17 @@ export class Form extends Component {
         this.props.updateActive(edgeAskOrder)
       }
       this.clearInputs()
-      return newOrder
     } else if(!bid) {
       this.props.addAsk(this.state)
       this.props.updateActive(this.state)
       this.clearInputs()
-      return this.state
     }
+    this.updateSpread()
+  }
+
+  updateSpread() {
+    const spread = this.props.bids[0].volume - this.props.asks[0].volume
+    this.props.storeSpread(spread)
   }
 
   render() {
@@ -218,9 +221,9 @@ Form.propTypes = {
   removeBid: PropTypes.func.isRequired,
   addAsk: PropTypes.func.isRequired,
   addBid: PropTypes.func.isRequired,
-  storeAsks: PropTypes.func,
-  storeBids: PropTypes.func,
-  storeSpread: PropTypes.func
+  storeAsks: PropTypes.func.isRequired,
+  storeBids: PropTypes.func.isRequired,
+  storeSpread: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
