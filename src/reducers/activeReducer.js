@@ -6,7 +6,13 @@ const activeReducer = (state = initalState, action) => {
       return action.activeOrders
       break;
     case 'UPDATE_ACTIVE':
-      const newObj = Object.assign({}, action.order, { id: Math.random() * Date.now()/2, key: Math.random() * Date.now()/2})
+      const newObj = Object.assign(
+        {}, 
+        action.order, 
+        { id: Math.random() * Date.now()/2, 
+          key: Math.random() * Date.now()/2,
+          total: action.order.type
+        })
       return [...state, newObj]
     default:
       return state;
