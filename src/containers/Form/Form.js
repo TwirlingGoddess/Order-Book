@@ -88,7 +88,7 @@ export class Form extends Component {
       return newOrder
     } else if(!ask) {
       console.log('no ask deal')
-      const newBidOrder = Object.assign({}, this.state, {closed: false, id: Date.now()})
+      const newBidOrder = Object.assign({}, this.state, {id: Date.now()})
       this.props.addBid(newBidOrder)
       this.props.updateActive(newBidOrder)
       this.clearInputs()
@@ -129,7 +129,7 @@ export class Form extends Component {
       return newOrder
     } else if(!bid) {
       console.log('no bid deal')
-      const newAskOrder = Object.assign({}, this.state, {closed: false, id: Date.now()})
+      const newAskOrder = Object.assign({}, this.state, {id: Date.now()})
       this.props.addAsk(newAskOrder)
       this.props.updateActive(newAskOrder)
       this.clearInputs()

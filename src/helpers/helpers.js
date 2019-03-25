@@ -5,6 +5,7 @@ export const organizeBids = orders => {
     bidsSortedByVolume.forEach((num) => orders.forEach((order) => {
       if(num === order.volume && order.type === "bid") {
         order['total']=(order.volume*order.price).toFixed(5)
+        order['closed']=false
         bidsArray.push(order)
       }
     }))
@@ -18,6 +19,7 @@ export const  organizeAsks = orders => {
     asksSortedByVolume.forEach((num) => orders.forEach((order) => {
       if(num === order.volume && order.type ==="ask") {
         order['total']=(order.volume*order.price).toFixed(5)
+        order['closed']=false
         asksArray.push(order)
       }
     }))
