@@ -9,14 +9,15 @@
 form {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  width: 100%;
+  justify-content: center;
+  align-items: space-around;
+  width: 98%;
 }
 
 select {
   height: 30px;
   width: 99%;
-  font-size: larger;
+  font-size: x-large;
 }
 
 label {
@@ -27,12 +28,12 @@ input {
   border: none;
   outline: none;
   height: 30px;
-  width: 99%;
+  width: 97%;
   padding: 5px;
-  margin: 3px 5px;
+  margin: 3px;
   box-shadow: 1px 1px 10px #AAF;
-  border-radius: 10px;
-  font-size: large;
+  border-radius: 100px;
+  font-size: larger;
   font-weight: 100;
   text-align: center;
 }
@@ -43,7 +44,7 @@ button {
   padding: 0;
   margin-top: 10px;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 100px;
   background-color: #3f3f55;
   font-size: large;
   color: white;
@@ -51,9 +52,10 @@ button {
 }
 
 button:hover {
-  background-color: slategrey;
-  color: purple;
-  font-size: large;
+  background: radial-gradient(white, slategrey);
+  color: #3f3f55;
+  font-size: larger;
+  font-weight: bold;
   box-shadow: 1px 1px 15px #AAF;
   cursor: pointer;
 }

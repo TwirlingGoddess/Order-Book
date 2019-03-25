@@ -25,11 +25,11 @@ export const SideNav = ({activeOrders}) => {
   ))
 
   return (
-    <main>
-      <h3>Your Orders</h3>
+    <main className="SideNav">
+      <h2 className="title">Your Orders</h2>
       <FilterMenu />
       <article>      
-        <h3 className="menu">
+        <h3 className="mini-menu">
           <p>Price</p> 
           <p>Volume</p> 
           <p>Type</p>

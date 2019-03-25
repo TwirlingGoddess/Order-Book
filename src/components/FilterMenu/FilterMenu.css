@@ -1,20 +1,19 @@
 .FilterMenu {
     bottom: 0;
-    width: 100%;
+    width: 98%;
     height: 5%;
     border-bottom: 1px solid #aaa;
     padding-top: 30px;
-    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
 }
 
+
 .FilterMenu a {
-    width: 33%;
+    width: 30%;
     text-decoration: none;
     color: slategrey;
     text-transform: uppercase;
-    margin: 0 20px;
-    padding: 16px;
-    text-align: center;
     font-size: larger;
 }
 

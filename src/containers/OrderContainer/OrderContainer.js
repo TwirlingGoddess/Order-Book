@@ -15,7 +15,7 @@ export const OrderContainer = ({bidsInStore, asksInStore, spreadInStore}) => {
   ))
 
   return (
-    <main>
+    <main className="container">
       <h3 className="menu">
         <p>Price</p> 
         <p>Volume</p> 
