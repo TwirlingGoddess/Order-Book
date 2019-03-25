@@ -25,7 +25,7 @@ export const OrderContainer = ({bidsInStore, asksInStore, spreadInStore}) => {
         <span>Asks</span>
         { displayAsks }
       </article>
-      <h4 className="spread">SPREAD: { spreadInStore }</h4>
+      <h4 className="spread">SPREAD : { spreadInStore }</h4>
       <h3 className="menu">
         <p>Price</p> 
         <p>Volume</p> 

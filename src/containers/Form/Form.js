@@ -132,7 +132,7 @@ export class Form extends Component {
   }
 
   updateSpread() {
-    const spread = this.props.bids[0].volume - this.props.asks[0].volume
+    const spread = store.getState().bids[0].volume - store.getState().asks[0].volume
     this.props.storeSpread(spread)
   }
 

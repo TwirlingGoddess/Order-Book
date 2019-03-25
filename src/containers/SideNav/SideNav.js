@@ -26,7 +26,7 @@ export const SideNav = ({activeOrders}) => {
 
   return (
     <main className="SideNav">
-      <h2 className="title">Your Orders</h2>
+      <h2 className="title">Orders</h2>
       <FilterMenu />
       <article>      
         <h3 className="mini-menu">

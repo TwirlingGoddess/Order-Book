@@ -11,11 +11,11 @@
 }
 
 .menu, .mini-menu {
+  width: 89%;
+  height: 12px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 89%;
-  height: 12px;
 }
 
 .menu {
@@ -30,7 +30,17 @@
 }
 
 .spread {
+  width: 75%;
+
+  /*background: radial-gradient(white, slategrey);*/
   color: purple;
+  box-shadow: 1px 1px 42px #aaa;
+
+  font-size: larger;
+  /*border-radius: 100px;*/
+  text-align: center;
+  margin: 35px auto 15px auto;
+  padding: 15px;
 }
 
 .mini-menu {
