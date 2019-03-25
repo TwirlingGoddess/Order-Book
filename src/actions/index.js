@@ -74,3 +74,15 @@ export const removeBid = bid => ({
   type: 'REMOVE_BID',
   bid
 });
+
+export const updateBid = (id, newBid) => ({
+  type: 'UPDATE_BID',
+  id,
+  newBid
+})
+
+export const updateAsk = (id, newAsk) => ({
+  type: 'UPDATE_ASK',
+  id,
+  newAsk
+})

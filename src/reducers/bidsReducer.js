@@ -1,4 +1,5 @@
 const initialState = [];
+import { organizeBids } from '../helpers/helpers';
 
 const bidsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -9,7 +10,18 @@ const bidsReducer = (state = initialState, action) => {
       return state.filter(bid => bid !== action.bid)
       break;
     case 'ADD_BID':
-      return [...state, action.bid]
+      return organizeBids([...state, action.bid])
+      break;
+    case 'UPDATE_BID':
+      const array = state.map(bid => {
+        if(bid.id === action.id){
+          return bid = action.newBid
+        } else {
+          return bid
+        }
+        return
+      })
+      return organizeBids(array)
     default:
       return state
   }

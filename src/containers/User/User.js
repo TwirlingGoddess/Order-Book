@@ -27,10 +27,6 @@ export class User extends Component {
         <h1>{ store.getState().user.username }</h1>
         <h2>PHP : <em>{ store.getState().user.PHP }</em></h2>
         <h2>TestCoin: <em>{ store.getState().user.TestCoin }</em></h2>
-        <h3 className="bidAskBox">
-          <span className="bids">Bids</span>
-          <span className="asks">Asks</span>
-        </h3> 
       </div>
     )
   }

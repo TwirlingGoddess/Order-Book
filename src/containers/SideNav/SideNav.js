@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { updateUser, saveOrder, displayOrders } from '../../actions';
 
 const getFilteredOrders = (activeOrders, filter) => {
-      console.log(activeOrders, filter)
   switch (filter) {
     case 'SHOW_ALL':
       return activeOrders
@@ -22,15 +21,15 @@ const getFilteredOrders = (activeOrders, filter) => {
 export const SideNav = ({activeOrders}) => {
   displayOrders(activeOrders)
   const userOrders = activeOrders.map(order => (
-    <Order {...order} key={order.id} />
+    <Order {...order} />
   ))
 
   return (
-    <main>
-      <h3>Your Orders</h3>
+    <main className="SideNav">
+      <h2 className="title">Orders</h2>
       <FilterMenu />
       <article>      
-        <h3 className="menu">
+        <h3 className="mini-menu">
           <p>Price</p> 
           <p>Volume</p> 
           <p>Type/Total</p>

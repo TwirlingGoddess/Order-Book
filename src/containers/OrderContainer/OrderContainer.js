@@ -8,24 +8,31 @@ import './OrderContainer.css';
 
 export const OrderContainer = ({bidsInStore, asksInStore, spreadInStore}) => {
   const displayAsks = asksInStore.map(order => (
-    <Order {...order} key={order.id} />
+    <Order {...order}/>
   ))
   const displayBids = bidsInStore.map(order => (
-    <Order {...order} key={order.id} />
+    <Order {...order}/>
   ))
 
   return (
-    <main>
+    <main className="container">
       <h3 className="menu">
         <p>Price</p> 
         <p>Volume</p> 
         <p>Total</p>
       </h3>
       <article className="columns">
+        <span>Asks</span>
         { displayAsks }
       </article>
-      <h4 className="spread">SPREAD: { spreadInStore }</h4>
+      <h4 className="spread">SPREAD : { spreadInStore }</h4>
+      <h3 className="menu">
+        <p>Price</p> 
+        <p>Volume</p> 
+        <p>Total</p>
+      </h3>
       <article className="columns">
+        <span>Bids</span>
         { displayBids }
       </article>
     </main>

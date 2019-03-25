@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateUser, updateActive, removeBid, addBid, removeAsk, addAsk } from '../../actions';
-import { classifyActive } from '../../helpers/helpers';
+import { updateUser, updateActive, updateBid, updateAsk, removeBid, addBid, removeAsk, addAsk, storeAsks, storeBids, storeSpread } from '../../actions';
+import { organizeAsks, organizeBids } from '../../helpers/helpers';
 import { store } from '../../index.js'
 import './Form.css';
 
@@ -11,7 +11,7 @@ export class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: (Math.random()*2.85714286).toFixed(5),
+      id: '',
       type: '',
       price: '',
       volume: '',
@@ -60,69 +60,80 @@ export class Form extends Component {
   matchAsks() {
     const statePrice = Number(this.state.price)
     const stateVolume = Number(this.state.volume)
-    return this.props.asks.find(ask => {
-    const askPrice = Number(ask.price)
-    const askVolume = Number(ask.volume)
-      if(askPrice === statePrice) {   
-        const newVolume = askVolume - stateVolume;
-        const newAskTotal = newVolume * statePrice
-        const newOrderTotal = stateVolume * statePrice
-        const newBookAsk = Object.assign({}, ask, {volume: newVolume, total: newAskTotal, id: Date.now()})
-        const newOrder = Object.assign({}, ask, {volume: stateVolume, closed: true, total: newOrderTotal})
-        if(askVolume > stateVolume) {
-          this.props.removeAsk(ask)
-          this.props.addAsk(newBookAsk)
-          this.props.updateActive(newOrder)
-          this.clearInputs()
-        } else if(askVolume === stateVolume){
-          this.props.removeAsk(ask)
-          this.props.updateActive(newOrder)
-          this.clearInputs()
-        } return newOrder
-      } else {
-        console.log('no bid deal')
-        const newBidOrder = Object.assign({}, this.state, {closed: false, id: Date.now()})
-        this.props.addBid(newBidOrder)
-        this.props.updateActive(newBidOrder)
-        this.clearInputs()
-        return newBidOrder
+    const ask = this.props.asks.find(ask => Number(ask.price) === statePrice || null)
+    if(ask) {   
+      const askPrice = Number(ask.price)
+      const askVolume = Number(ask.volume)
+      const newVolume = askVolume - stateVolume;
+      const newAskTotal = newVolume * statePrice
+      const newOrderTotal = stateVolume * statePrice
+      const newBookAsk = Object.assign({}, ask, {volume: newVolume, total: newAskTotal})
+      const newOrder = Object.assign({}, ask, {volume: stateVolume, closed: true, total: newOrderTotal})
+      if(askVolume > stateVolume) {
+        this.props.updateAsk(ask.id, newBookAsk)
+        this.props.updateActive(newOrder)
+      } else if(askVolume === stateVolume) {
+        this.props.removeAsk(ask)
+        this.props.updateActive(newOrder)
+      } else if(askVolume < stateVolume) {
+        const edgeVolume = stateVolume - askVolume;
+        const edgeBidTotal = edgeVolume * statePrice
+        const edgeBidOrder = Object.assign({}, this.state, {volume: edgeVolume, total: edgeBidTotal})
+        const newAsk = Object.assign({}, ask, {closed: true})
+        this.props.removeAsk(ask)
+        this.props.updateActive(newAsk)
+        this.props.addBid(edgeBidOrder)
+        this.props.updateActive(edgeBidOrder)
       }
-          return newOrder
-    }) 
+      this.clearInputs()
+    } else if(!ask) {
+      this.props.addBid(this.state)
+      this.props.updateActive(this.state)
+      this.clearInputs()
+    }
+    this.updateSpread()
   }
 
   matchBids() {
     const statePrice = Number(this.state.price)
     const stateVolume = Number(this.state.volume)
-    return this.props.bids.find(bid => {
-    const bidPrice = Number(bid.price)
-    const bidVolume = Number(bid.volume)
-      if(bidPrice === statePrice) {   
-        const newVolume = bidVolume - stateVolume;
-        const newBidTotal = newVolume * statePrice
-        const newOrderTotal = stateVolume * statePrice
-        const newBookBid = Object.assign({}, bid, {volume: newVolume, total: newBidTotal, id: Date.now()})
-        const newOrder = Object.assign({}, bid, {volume: stateVolume, closed: true, total: newOrderTotal})
-        if(bidVolume > stateVolume) {
-          this.props.removeBid(bid)
-          this.props.addBid(newBookBid)
-          this.props.updateActive(newOrder)
-          this.clearInputs()
-        } else if(bidVolume === stateVolume){
-          this.props.removeBid(bid)
-          this.props.updateActive(newOrder)
-          this.clearInputs()
-        } return newOrder
-      } else {
-        console.log('no bid deal')
-        const newBidOrder = Object.assign({}, this.state, {closed: false, id: Date.now()})
-        this.props.addAsk(newBidOrder)
-        this.props.updateActive(newBidOrder)
-        this.clearInputs()
-        return newBidOrder
+    const bid = this.props.bids.find(bid => Number(bid.price) === statePrice || null)
+    if(bid) {   
+      const bidPrice = Number(bid.price)
+      const bidVolume = Number(bid.volume)
+      const newVolume = bidVolume - stateVolume;
+      const newBidTotal = newVolume * statePrice
+      const newOrderTotal = stateVolume * statePrice
+      const newBookBid = Object.assign({}, bid, {volume: newVolume, total: newBidTotal})
+      const newOrder = Object.assign({}, bid, {volume: stateVolume, closed: true, total: newOrderTotal})
+      if(bidVolume > stateVolume) {
+        this.props.updateBid(bid.id, newBookBid)
+        this.props.updateActive(newOrder)
+      } else if(bidVolume === stateVolume){
+        this.props.removeBid(bid)
+        this.props.updateActive(newOrder)
+      }  else if(bidVolume < stateVolume) {
+        const edgeVolume = stateVolume - bidVolume;
+        const edgeAskTotal = edgeVolume * statePrice
+        const edgeAskOrder = Object.assign({}, this.state, {volume: edgeVolume, total: edgeAskTotal})
+        const newBid = Object.assign({}, bid, {closed: true})
+        this.props.removeBid(bid)
+        this.props.updateActive(newBid)
+        this.props.addAsk(edgeAskOrder)
+        this.props.updateActive(edgeAskOrder)
       }
-          return newOrder
-    }) 
+      this.clearInputs()
+    } else if(!bid) {
+      this.props.addAsk(this.state)
+      this.props.updateActive(this.state)
+      this.clearInputs()
+    }
+    this.updateSpread()
+  }
+
+  updateSpread() {
+    const spread = store.getState().bids[0].volume - store.getState().asks[0].volume
+    this.props.storeSpread(spread)
   }
 
   render() {
@@ -187,12 +198,17 @@ export const mapStateToProps = state => ({
 })
 
 export const mapDispatchToProps = dispatch => ({
+  updateAsk: (id, newAsk) => dispatch(updateAsk(id, newAsk)),
+  updateBid: (id, newBid) => dispatch(updateBid(id, newBid)),
   updateUser: newBalances => dispatch(updateUser(newBalances)),
   updateActive: order => dispatch(updateActive(order)),
   removeAsk: ask => dispatch(removeAsk(ask)),
   removeBid: bid => dispatch(removeBid(bid)),
   addAsk: ask => dispatch(addAsk(ask)),
-  addBid: bid => dispatch(addBid(bid))
+  addBid: bid => dispatch(addBid(bid)),
+  storeAsks: asks => dispatch(storeAsks(asks)),
+  storeBids: bids => dispatch(storeBids(bids)),
+  storeSpread: spread => dispatch(storeSpread(spread))
 })
 
 Form.propTypes = {
@@ -204,7 +220,10 @@ Form.propTypes = {
   removeAsk: PropTypes.func.isRequired,
   removeBid: PropTypes.func.isRequired,
   addAsk: PropTypes.func.isRequired,
-  addBid: PropTypes.func.isRequired
+  addBid: PropTypes.func.isRequired,
+  storeAsks: PropTypes.func.isRequired,
+  storeBids: PropTypes.func.isRequired,
+  storeSpread: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
