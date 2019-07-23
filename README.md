@@ -52,7 +52,7 @@ The user should be able to input the​ price​, ​volume​ and ​total​. 
 ### Task 4: Executing the Order
 Upon submitting the order, the order book and the user’s account balance should be updated.
 A limit order that has no matches on the order book should be added to the list. A limit sell order should be matched with a ​bid​ price that is equal to or greater than the order’s price. A limit buy order should be matched with an ​ask​ ​price ​that is equal to or less than the order’s price.
-![update user](https://github.com/TwirlingGoddess/Order-Book/blob/master/update user.png "update user")
+![update user](https://github.com/TwirlingGoddess/Order-Book/blob/master/update%20user.png "update user")
 
 ### Task 5: Displaying Open and Closed Orders
 Create a React component that will display the user’s closed and open orders. Open and closed order lists should display the following columns:
