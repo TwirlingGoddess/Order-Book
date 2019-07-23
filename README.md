@@ -32,11 +32,13 @@ shown in the following figure:
 Create a ​React​ component that displays the user’s name and balance for ​Philippine Peso (PHP) and the cryptocurrency ​TestCoin (TCN).
 The balances for ​PHP​ and ​TCN​ should be updated when a user places an order or when an order is filled.
 The data for the user is in the text/json file attached to the email.
+![coin-landing](https://github.com/TwirlingGoddess/Order-Book/blob/master/coin-landing.png "coin-landing")
 
 ### Task 2: Displaying an order book
 Createa​React​componentthatdisplaysthe​bids​and​asks.​ Thecomponentshouldhavea vertically displayed list that is divided into two. The upper half should contain the ​asks​ while the bottom half should display the ​bids​. The list should be separated by a box that displays the spread​ of the order book.
 The orders on the ​ask s​ ection should be sorted from lowest to highest (bottom to top, starting from the middle), while the orders on the ​bids ​should be displayed from highest to lowest (top to bottom).
 Use the text/json file attached to the email as the initial content of the order book.
+![bids:asks](https://github.com/TwirlingGoddess/Order-Book/blob/master/bids:asks.png "bids:asks")
 
 ### Task 3: Creating a Form for Placing a Limit Order.
 Create a form that will allow users to input and submit their order. The form should have the following controls:
@@ -50,6 +52,7 @@ The user should be able to input the​ price​, ​volume​ and ​total​. 
 ### Task 4: Executing the Order
 Upon submitting the order, the order book and the user’s account balance should be updated.
 A limit order that has no matches on the order book should be added to the list. A limit sell order should be matched with a ​bid​ price that is equal to or greater than the order’s price. A limit buy order should be matched with an ​ask​ ​price ​that is equal to or less than the order’s price.
+![update user](https://github.com/TwirlingGoddess/Order-Book/blob/master/update user.png "update user")
 
 ### Task 5: Displaying Open and Closed Orders
 Create a React component that will display the user’s closed and open orders. Open and closed order lists should display the following columns:
@@ -57,3 +60,4 @@ Create a React component that will display the user’s closed and open orders. 
 - Volume
 - Type (bid or ask)
 Closed orders​ are orders that are already filled; ​Open orders​ are orders that have not yet been matched
+![closed](https://github.com/TwirlingGoddess/Order-Book/blob/master/closed.png "closed")
